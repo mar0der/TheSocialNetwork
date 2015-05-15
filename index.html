@@ -21,7 +21,7 @@
 <body>
     <header add-header></header>
 
-    <div class="container">
+    <div class="container" ng-view>
         <a href="#" class="btn btn-primary">send</a>
     </div>
 
@@ -45,8 +45,10 @@
     <!-- directives -->
     <script src="js/directives/addHeader.js"></script>
     <!-- services -->
+    <script src="js/services/authentication.js"></script>
+    <script src="js/services/notyService.js"></script>
     <!-- controllers -->
-    <script src="js/controllers/homeController.js"></script>
+    <script src="js/controllers/authenticationController.js"></script>
     <script src="js/controllers/userController.js"></script>
 
 

@@ -8,15 +8,15 @@ app.config(function ($routeProvider) {
     $routeProvider
         .when('/login', {
             templateUrl: 'partials/login.html',
-            controller: 'publicController'
+            controller: 'authenticationController'
         })
         .when('/register', {
             templateUrl: 'partials/register.html',
-            controller: 'publicController'
+            controller: 'authenticationController'
         })
         .when('/', {
             templateUrl: 'partials/home.html',
-            controller: 'publicController'
+            controller: 'authenticationController'
         })
         .otherwise({ redirectTo: '/' });
 });
