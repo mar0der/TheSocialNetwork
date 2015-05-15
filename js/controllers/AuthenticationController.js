@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-app.controller('authenticationController', function ($scope, $location, $route, authentication, notifyService) {
+app.controller('authenticationController', function ($scope, $location, $route, authentication, notyService) {
 
     var ClearData = function () {
         $scope.loginData = "";
@@ -10,34 +10,36 @@ app.controller('authenticationController', function ($scope, $location, $route, 
     };
 
     $scope.login = function () {
-        authentication.Login($scope.loginData, function (serverData) {
-            notifyService.showInfo("Successful Login!");
+        authentication.Login($scope.loginData)
+        .then(function (serverData) {
+            notyService.showInfo("Successful Login!");
             authentication.SetCredentials(serverData);
             ClearData();
             $location.path('/home');
         },
         function (serverError) {
-            notifyService.showError("Unsuccessful Login!", serverError);
+            notyService.showError("Unsuccessful Login!", serverError);
         });
     };
 
     $scope.register = function () {
-        authentication.Register($scope.registerData, function (serverData) {
-            notifyService.showInfo("Successful Registeration!");
+        authentication.Register($scope.registerData)
+        .then(function (serverData) {
+            notyService.showInfo("Successful Registeration!");
             authentication.SetCredentials(serverData);
             ClearData();
             $location.path('/home');
         },
         function (serverError) {
-            notifyService.showError("Unsuccessful Registeration!", serverError);
+            notyService.showError("Unsuccessful Registeration!", serverError);
         });
     };
 
     $scope.logout = function () {
-        notifyService.showInfo("Successful Logout!");
+        notyService.showInfo("Successful Logout!");
         ClearData();
         authentication.ClearCredentials();
-        mainData.clearParams();
+        // mainData.clearParams();
         $route.reload();
     };
 });

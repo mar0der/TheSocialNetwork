@@ -1,22 +1,32 @@
 ﻿'use strict';
 
-app.factory('authentication', function ($http, baseServiceUrl) {
+app.factory('authentication', function ($http, $q, baseServiceUrl) {
     var service = {};
 
     var serviceUrl = baseServiceUrl + '/users';
 
-    service.Login = function (loginData, success, error) {
+    service.Login = function (loginData) {
+        var deferred = $q.defer();
         $http.post(serviceUrl + '/login', loginData)
             .success(function (data, status, headers, config) {
-                success(data);
-            }).error(error);
+                deferred.resolve (data);
+            })
+            .error(function (errorData) {
+                deferred.reject (errorData);
+            });
+        return deferred.promise;
     };
 
     service.Register = function (registerData, success, error) {
+        var deferred = $q.defer();
         $http.post(serviceUrl + '/register', registerData)
-            .success(function (data, status, headers, config) {
-                success(data);
-            }).error(error);
+            .success(function(data, status, headers, config) {
+                deferred.resolve(data, status, headers, config);
+            })
+            .error(function(errorData) {
+                deferred.reject(errorData);
+            });
+        return deferred.promise;
     };
 
     //service.GetUserProfile = function (success, error) {
