@@ -19,13 +19,7 @@
     <![endif]-->
 </head>
 <body>
-    <header add-header></header>
-
-    <div class="container" ng-view>
-        <a href="#" class="btn btn-primary">send</a>
-    </div>
-
-
+    <div ng-view></div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -48,9 +42,8 @@
     <script src="js/services/authentication.js"></script>
     <script src="js/services/notyService.js"></script>
     <!-- controllers -->
+    <script src="js/controllers/mainController.js"></script>
     <script src="js/controllers/authenticationController.js"></script>
     <script src="js/controllers/userController.js"></script>
-
-
 </body>
 </html>

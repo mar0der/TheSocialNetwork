@@ -9,13 +9,16 @@ app.controller('authenticationController', function ($scope, $location, $route, 
         $scope.passwordData = "";
     };
 
+    $scope.bar = 'bar';
+
     $scope.login = function () {
         authentication.Login($scope.loginData)
         .then(function (serverData) {
             notyService.showInfo("Successful Login!");
             authentication.SetCredentials(serverData);
+            $scope.bar = 'foo';
             ClearData();
-            $location.path('/home');
+            $location.path('/');
         },
         function (serverError) {
             notyService.showError("Unsuccessful Login!", serverError);
@@ -28,7 +31,7 @@ app.controller('authenticationController', function ($scope, $location, $route, 
             notyService.showInfo("Successful Registeration!");
             authentication.SetCredentials(serverData);
             ClearData();
-            $location.path('/home');
+            $location.path('/');
         },
         function (serverError) {
             notyService.showError("Unsuccessful Registeration!", serverError);
@@ -39,7 +42,11 @@ app.controller('authenticationController', function ($scope, $location, $route, 
         notyService.showInfo("Successful Logout!");
         ClearData();
         authentication.ClearCredentials();
-        // mainData.clearParams();
+        $location.path('/');
         $route.reload();
     };
+
+    $scope.clear = function() {
+        $route.reload();
+    }
 });
