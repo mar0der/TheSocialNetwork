@@ -9,8 +9,6 @@ app.controller('authenticationController', function ($scope, $location, $route, 
         $scope.passwordData = "";
     };
 
-    $scope.bar = 'bar';
-
     $scope.login = function () {
         authentication.Login($scope.loginData)
         .then(function (serverData) {
