@@ -14,7 +14,7 @@ app.controller('authenticationController', function ($scope, $location, $route, 
         .then(function (serverData) {
             notyService.showInfo("Successful Login!");
             authentication.SetCredentials(serverData);
-            console.log(mainController);
+            //console.log(mainController);
 
             //mainController.getAboutMe();
             ClearData();

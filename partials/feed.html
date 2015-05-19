@@ -1,14 +1,14 @@
 ﻿<header ng-include="'partials/header.html'"></header>
 <div class="container">
     <div class="col-lg-2">
-        <div class="media">
+        <div class="media" ng-controller="meController">
             <div class="media-left">
                 <a href="#">
-                    <img class="img-circle" src="http://dummyimage.com/64x64/f7c9f7/000000" alt="...">
+                    <img class="img-circle" ng-src="{{aboutMe.profileImageData}}" alt="{{aboutMe.name}}'s profile picture" style="width: 64px; height: 64px;">
                 </a>
             </div>
             <div class="media-body media-left">
-                <h4 class="media-heading"><a href="#">mar0der{{aboutMe.name}}</a></h4>
+                <h4 class="media-heading"><a href="{{aboutMe.username}}">{{aboutMe.username}}</a></h4>
             </div>
         </div>
     </div>
