@@ -14,6 +14,9 @@ app.controller('authenticationController', function ($scope, $location, $route, 
         .then(function (serverData) {
             notyService.showInfo("Successful Login!");
             authentication.SetCredentials(serverData);
+            console.log(mainController);
+
+            //mainController.getAboutMe();
             ClearData();
             $location.path('/feed');
         },
@@ -27,6 +30,7 @@ app.controller('authenticationController', function ($scope, $location, $route, 
         .then(function (serverData) {
             notyService.showInfo("Successful Registeration!");
             authentication.SetCredentials(serverData);
+           // mainController.getAboutMe();
             ClearData();
             $location.path('/feed');
         },
@@ -43,7 +47,9 @@ app.controller('authenticationController', function ($scope, $location, $route, 
         $route.reload();
     };
 
-    $scope.clear = function() {
+
+
+    $scope.clear = function () {
         $route.reload();
     }
 });
