@@ -9,14 +9,12 @@ app.controller('authenticationController', function ($scope, $location, $route, 
         $scope.passwordData = "";
     };
 
+    $scope.loginData = { username: "mar0der", password: "123456" };
     $scope.login = function () {
         authentication.Login($scope.loginData)
         .then(function (serverData) {
             notyService.showInfo("Successful Login!");
             authentication.SetCredentials(serverData);
-            //console.log(mainController);
-
-            //mainController.getAboutMe();
             ClearData();
             $location.path('/feed');
         },
@@ -30,7 +28,6 @@ app.controller('authenticationController', function ($scope, $location, $route, 
         .then(function (serverData) {
             notyService.showInfo("Successful Registeration!");
             authentication.SetCredentials(serverData);
-           // mainController.getAboutMe();
             ClearData();
             $location.path('/feed');
         },
@@ -46,8 +43,6 @@ app.controller('authenticationController', function ($scope, $location, $route, 
         $location.path('/');
         $route.reload();
     };
-
-
 
     $scope.clear = function () {
         $route.reload();

@@ -29,7 +29,23 @@ app.factory('authentication', function ($http, $q, baseServiceUrl) {
         return deferred.promise;
     };
 
+    service.GetAboutMe = function () {
+        var deffered = $q.defer();
+        var config = { headers: service.GetHeaders() };
+        $http.get(baseServiceUrl + 'me/', config)
+            .success(function (responseData) {
+                deffered.resolve(responseData);
+            })
+            .error(function (errorData) {
+                deferred.reject(errorData);
+            });
+        return deffered.promise;
+    }
 
+    $scope.$broadcast('profileChanged');
+    $rootScope.$on('profileChanged', function() {
+
+    });
 
     //service.GetUserProfile = function (success, error) {
     //    $http.get(serviceUrl + '/profile', { headers: this.GetHeaders() })

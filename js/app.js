@@ -29,7 +29,7 @@ app.config(function ($routeProvider) {
             }
         })
         //wall
-        .when('/user/:username', {
+        .when('/:username', {
             templateUrl: 'partials/wall.html',
             controller: 'mainController',
             resolve: {

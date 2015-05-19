@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-app.controller('feedController', function($scope, feedService, notyService) {
+app.controller('feedController', function($scope, feedService, $log, notyService) {
 
     $scope.getMyFeed = function() {
         feedService.getMyFeed()
@@ -8,6 +8,7 @@ app.controller('feedController', function($scope, feedService, notyService) {
                     $scope.feedData = responseData;
                 },
                 function (serverError) {
+                    $log.warn(serverError);
                     notyService.showError("Unable to load your feed", serverError);
                 });
     };
