@@ -1,10 +1,10 @@
 ﻿'use strict';
 
-app.factory('feedService', function ($http, $q, baseServiceUrl, authentication) {
+app.factory('feedService', function ($http, $q, configService, authenticationService) {
     var service = {};
-    var config = { headers: authentication.GetHeaders() };
+    var config = { headers: authenticationService.GetHeaders() };
 
-    var serviceUrl = baseServiceUrl + 'me/feed/';
+    var serviceUrl = configService.baseServiceUrl + 'me/feed/';
     service.getMyFeed = function () {
         var deferred = $q.defer();
         $http.get(serviceUrl + '?StartPostId&PageSize=15', config)
@@ -16,7 +16,6 @@ app.factory('feedService', function ($http, $q, baseServiceUrl, authentication) 
             });
 
         return deferred.promise;
-
     }
     return service;
 });

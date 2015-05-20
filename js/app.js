@@ -9,58 +9,47 @@ app.config(function ($routeProvider) {
     $routeProvider
         .when('/login', {
             templateUrl: 'partials/login.html',
-            controller: 'mainController',
-            resolve: {
-                isLoggedIn: isLogged
-            }
+            controller: 'authenticationController',
         })
         .when('/register', {
             templateUrl: 'partials/register.html',
-            controller: 'mainController',
-            resolve: {
-                isLoggedIn: isLogged
-            }
+            controller: 'authenticationController',
         })
-        .when('/profile/edit', {
-            templateUrl: 'partials/profileEdit.html',
-            controller: 'mainController',
-            resolve: {
-                isLoggedOut: isLoggedOut
-            }
-        })
+        //.when('/profile/edit', {
+        //    templateUrl: 'partials/profileEdit.html',
+        //    controller: 'authenticationController',
+        //    resolve: {
+        //        isLoggedOut: isLoggedOut
+        //    }
+        //})
         //wall
-        .when('/:username', {
-            templateUrl: 'partials/wall.html',
-            controller: 'mainController',
-            resolve: {
-                isLoggedOut: isLoggedOut
-            }
-        })
-        //feed
-        .when('/feed', {
-            templateUrl: 'partials/feed.html',
-            controller: 'mainController',
-            resolve: {
-                isLoggedOut: isLoggedOut
-            }
-        })
+        //.when('/:username', {
+        //    templateUrl: 'partials/wall.html',
+        //    controller: 'personController',
+        //    resolve: {
+        //        isLoggedOut: isLoggedOut
+        //    }
+        //})
         //home
         .when('/', {
-            templateUrl: 'partials/welcome.html',
-            controller: 'mainController'
+            templateUrl: 'partials/feed.html',
+            controller: 'feedController',
         })
-        .otherwise({ redirectTo: '/' });
+        .when('/welcome', {
+            templateUrl: 'partials/welcome.html',
+            controller: 'authenticationController',
+        })
+        .otherwise({ redirectTo: '/welcome' });
 });
 
-function isLogged($location) {
-    if (localStorage.getItem('accessToken')) {
-        $location.path('/');
-    }
-}
-
-function isLoggedOut($location) {
-    if (!localStorage.getItem('accessToken')) {
-        $location.path('/');
-    }
-}
+app.run(function ($rootScope, $location, authenticationService) {
+    $rootScope.$on('$locationChangeStart', function (event) {
+        if ($location.path().indexOf("login") === -1 && $location.path().indexOf("register") === -1 && !authenticationService.isLoggedIn()) {
+            $location.path("/welcome");
+        } 
+        if (($location.path().indexOf("login") !== -1 || $location.path().indexOf("register")) !== -1 && authenticationService.isLoggedIn()) {
+            $location.path("/");
+        }
+    });
+});
 

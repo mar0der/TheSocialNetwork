@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-app.controller('feedController', function($scope, feedService, $log, notyService) {
+app.controller('feedController', function($scope, $rootScope, feedService, $log, notyService) {
 
     $scope.getMyFeed = function() {
         feedService.getMyFeed()

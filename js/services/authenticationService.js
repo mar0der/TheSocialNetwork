@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-app.factory('authentication', function ($http, $q, baseServiceUrl) {
+app.factory('authenticationService', function ($http, $q, baseServiceUrl) {
     var service = {};
 
     var serviceUrl = baseServiceUrl + '/users';
@@ -42,10 +42,10 @@ app.factory('authentication', function ($http, $q, baseServiceUrl) {
         return deffered.promise;
     }
 
-    $scope.$broadcast('profileChanged');
-    $rootScope.$on('profileChanged', function() {
+   // $scope.$broadcast('profileChanged');
+    //$rootScope.$on('profileChanged', function() {
 
-    });
+   // });
 
     //service.GetUserProfile = function (success, error) {
     //    $http.get(serviceUrl + '/profile', { headers: this.GetHeaders() })

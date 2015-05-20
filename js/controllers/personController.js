@@ -1,3 +1,6 @@
-﻿app.controller('personController', function ($scope) {
+﻿'use strict';
+
+app.controller('personController', function ($scope, $location) {
+
 
 });

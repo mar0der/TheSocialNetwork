@@ -19,7 +19,13 @@
     <![endif]-->
 </head>
 <body>
-    <div ng-view></div>
+    <header ng-controller="navigationController" ng-include="'partials/header.html'"></header>
+    <div class="container">
+        <div class="col-lg-2" ng-controller="profileSidebarController" ng-include="'partials/profileSidebar.html'"></div>
+        <div class="col-lg-7" ng-view></div>
+        <div class="col-lg-3" ng-controller="friendsSidebarController" ng-include="'partials/friendsSidebar.html'"></div>
+
+    </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

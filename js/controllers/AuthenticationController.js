@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-app.controller('authenticationController', function ($scope, $location, $route, authentication, notyService) {
+app.controller('authenticationController', function ($scope, $rootScope, $location, $route, authenticationService, notyService) {
 
     var ClearData = function () {
         $scope.loginData = "";
@@ -9,14 +9,18 @@ app.controller('authenticationController', function ($scope, $location, $route, 
         $scope.passwordData = "";
     };
 
+
+    ////hardcoded login
     $scope.loginData = { username: "mar0der", password: "123456" };
+
     $scope.login = function () {
-        authentication.Login($scope.loginData)
+        authenticationService.Login($scope.loginData)
         .then(function (serverData) {
             notyService.showInfo("Successful Login!");
-            authentication.SetCredentials(serverData);
+            authenticationService.SetCredentials(serverData);
             ClearData();
-            $location.path('/feed');
+            $rootScope.$broadcast('login');
+            $location.path('/');
         },
         function (serverError) {
             notyService.showError("Unsuccessful Login!", serverError);
@@ -24,24 +28,17 @@ app.controller('authenticationController', function ($scope, $location, $route, 
     };
 
     $scope.register = function () {
-        authentication.Register($scope.registerData)
+        authenticationService.Register($scope.registerData)
         .then(function (serverData) {
             notyService.showInfo("Successful Registeration!");
-            authentication.SetCredentials(serverData);
+            authenticationService.SetCredentials(serverData);
             ClearData();
-            $location.path('/feed');
+            $rootScope.$broadcast('register');
+            $location.path('/');
         },
         function (serverError) {
             notyService.showError("Unsuccessful Registeration!", serverError);
         });
-    };
-
-    $scope.logout = function () {
-        notyService.showInfo("Successful Logout!");
-        ClearData();
-        authentication.ClearCredentials();
-        $location.path('/');
-        $route.reload();
     };
 
     $scope.clear = function () {
