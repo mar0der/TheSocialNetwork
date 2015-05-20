@@ -1,9 +1,10 @@
-﻿<div ng-controller = "feedController">
-    <div class="well well-lg" ng-repeat ="post in feedData">
+﻿<div class="col-lg-3" ng-include="'partials/profileSidebar.html'" ng-if="isLoggedIn"></div>
+<div class="col-lg-8" ng-controller="feedController">
+    <div class="well well-lg" ng-repeat="post in feedData">
         <div class="media">
             <div class="media-left">
                 <a href="#">
-                    <img class="media-object img-circle" ng-src="{{post.author.profileImageData}}" alt="{{post.author.name}}'s profile picture" style="width: 64px; height: 64px;">
+                    <img class="media-object img-circle" ng-src="{{post.author.profileImageData}}" alt="{{post.author.name}}'s profile picture" style="width: 60px; height: 60px;">
                 </a>
             </div>
             <div class="media-body media-left">
@@ -21,3 +22,4 @@
         </div>
     </div>
 </div>
+<div class="col-lg-1" ng-include="'partials/friendsSidebar.html'" ng-if="isLoggedIn"></div>

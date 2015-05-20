@@ -5,15 +5,7 @@ app.controller('mainController', function ($scope, $location, $route, $interval,
     $scope.isLoggedOut = !authentication.isLoggedIn();
     var service = {};
 
-    service.GetAboutMe = function getAboutMe() {
-        authentication.GetAboutMe()
-            .then(function (responseData) {
-                $scope.aboutMe = responseData;
-            },
-            function (errorData) {
-                notyService.showError("Can`t pull your data!", errorData);
-            });
-    }
+
 
     function refreshPendingRequests() {
         //console.log('req ' +new Date().toISOString());

@@ -2,7 +2,7 @@
 
 app.factory('feedService', function ($http, $q, configService, authenticationService) {
     var service = {};
-    var config = { headers: authenticationService.GetHeaders() };
+    var config = { headers: authenticationService.getHeaders() };
 
     var serviceUrl = configService.baseServiceUrl + 'me/feed/';
     service.getMyFeed = function () {
