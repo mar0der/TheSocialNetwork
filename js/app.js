@@ -8,12 +8,10 @@ app.config(function ($routeProvider) {
 
     $routeProvider
         .when('/login', {
-            templateUrl: 'partials/login.html',
-            controller: 'authenticationController',
+            templateUrl: 'partials/login.html'
         })
         .when('/register', {
-            templateUrl: 'partials/register.html',
-            controller: 'authenticationController',
+            templateUrl: 'partials/register.html'
         })
         //.when('/profile/edit', {
         //    templateUrl: 'partials/profileEdit.html',
@@ -33,11 +31,11 @@ app.config(function ($routeProvider) {
         //home
         .when('/', {
             templateUrl: 'partials/feed.html',
-            controller: 'feedController',
+            controller: 'feedController'
         })
         .when('/welcome', {
             templateUrl: 'partials/welcome.html',
-            controller: 'authenticationController',
+            controller: 'authenticationController'
         })
         .otherwise({ redirectTo: '/welcome' });
 });
