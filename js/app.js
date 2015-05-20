@@ -45,7 +45,7 @@ app.run(function ($rootScope, $location, authenticationService) {
         if ($location.path().indexOf("login") === -1 && $location.path().indexOf("register") === -1 && !authenticationService.isLoggedIn()) {
             $location.path("/welcome");
         } 
-        if (($location.path().indexOf("login") !== -1 || $location.path().indexOf("register")) !== -1 && authenticationService.isLoggedIn()) {
+        if (($location.path().indexOf("login") !== -1 || $location.path().indexOf("register") !== -1 || $location.path().indexOf("welcome") !== -1) && authenticationService.isLoggedIn()) {
             $location.path("/");
         }
     });
