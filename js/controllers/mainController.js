@@ -7,29 +7,26 @@ app.controller('mainController', function ($scope, $location, $route, $interval,
 
 
 
-    function refreshPendingRequests() {
-        //console.log('req ' +new Date().toISOString());
 
-    }
 
-    function refreshNewsFeed() {
-        if ($location.path() === '/feed') {
-            //feedController
-            //console.log('feed ' + new Date().toISOString());
-        }
-    }
+    //function refreshNewsFeed() {
+    //    if ($location.path() === '/feed') {
+    //        //feedController
+    //        //console.log('feed ' + new Date().toISOString());
+    //    }
+    //}
 
-    refreshPendingRequests();
-    refreshNewsFeed();
 
-    var interval = $interval(function() {
-        refreshPendingRequests();
-        refreshNewsFeed();
-    }, 60000);
+    //refreshNewsFeed();
 
-    $scope.$on('$destroy', function() {
-        $interval.cancel(interval);
-    });
+    //var interval = $interval(function() {
+    //    refreshPendingRequests();
+    //    refreshNewsFeed();
+    //}, 60000);
+
+    //$scope.$on('$destroy', function() {
+    //    $interval.cancel(interval);
+    //});
 
 
     return service;
