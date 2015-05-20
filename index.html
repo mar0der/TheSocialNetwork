@@ -18,13 +18,10 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
-<body>
-    <header ng-controller="navigationController" ng-include="'partials/header.html'"></header>
+<body ng-controller="authenticationController">
+    <header ng-controller="navigationController" ng-include="'partials/navigation.html'"></header>
     <div class="container">
-        <div class="col-lg-2" ng-controller="profileSidebarController" ng-include="'partials/profileSidebar.html'"></div>
-        <div class="col-lg-7" ng-view></div>
-        <div class="col-lg-3" ng-controller="friendsSidebarController" ng-include="'partials/friendsSidebar.html'"></div>
-
+        <div ng-view></div>
     </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
