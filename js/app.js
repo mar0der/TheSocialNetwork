@@ -13,14 +13,10 @@ app.config(function ($routeProvider) {
         .when('/register', {
             templateUrl: 'partials/register.html'
         })
-        //.when('/profile/edit', {
-        //    templateUrl: 'partials/profileEdit.html',
-        //    controller: 'authenticationController',
-        //    resolve: {
-        //        isLoggedOut: isLoggedOut
-        //    }
-        //})
-        //wall
+        .when('/user', {
+            templateUrl: 'partials/profileEdit.html',
+            controller: 'personController'
+        })
         //.when('/:username', {
         //    templateUrl: 'partials/wall.html',
         //    controller: 'personController',

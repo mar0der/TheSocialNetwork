@@ -2,8 +2,8 @@
 
 app.controller('profileSidebarController', function ($scope, $location, personService, notyService) {
 
-    $scope.GetAboutMe = function getAboutMe() {
-        personService.GetAboutMe()
+    $scope.getAboutMe = function getAboutMe() {
+        personService.getAboutMe()
             .then(function (responseData) {
                 $scope.aboutMe = responseData;
             },
@@ -12,6 +12,6 @@ app.controller('profileSidebarController', function ($scope, $location, personSe
             });
     }
     if ($scope.isLoggedIn) {
-        $scope.GetAboutMe();
+        $scope.getAboutMe();
     }
 });
