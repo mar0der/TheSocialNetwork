@@ -2,7 +2,7 @@
 
 app.controller('authenticationController', function ($scope, $rootScope, $location, $route, usersService, authenticationService, notyService) {
 
-    var ClearData = function () {
+    var clearData = function () {
         //$scope.loginData = "";
         $scope.registerData = "";
         $scope.userData = "";
@@ -20,7 +20,7 @@ app.controller('authenticationController', function ($scope, $rootScope, $locati
             notyService.showInfo("Successful Login!");
             authenticationService.setCredentials(serverData);
             $scope.isLoggedIn = authenticationService.isLoggedIn();
-            ClearData();
+            clearData();
             $location.path('/');
         },
         function (serverError) {
@@ -34,7 +34,7 @@ app.controller('authenticationController', function ($scope, $rootScope, $locati
             notyService.showInfo("Successful Registeration!");
             authenticationService.setCredentials(serverData);
             $scope.isLoggedIn = authenticationService.isLoggedIn();
-            ClearData();
+            clearData();
             $rootScope.$broadcast('register');
             $location.path('/');
         },
@@ -44,10 +44,18 @@ app.controller('authenticationController', function ($scope, $rootScope, $locati
     };
 
     $scope.logout = function logout() {
-        authenticationService.clearCredentials();
-        $scope.isLoggedIn = authenticationService.isLoggedIn();
-        notyService.showInfo("Successful Logout!");
-        $location.path('/welcome');
+        usersService.logout()
+            .then(function () {
+                authenticationService.clearCredentials();
+                $scope.isLoggedIn = authenticationService.isLoggedIn();
+                notyService.showInfo("Successful Logout!");
+                $location.path('/welcome');
+            }, function (serverError) {
+                authenticationService.clearCredentials();
+                $scope.isLoggedIn = authenticationService.isLoggedIn();
+                notyService.showError("Unsuccessful Logout!", serverError);
+                $location.path('/welcome');
+            });
     }
 
     $scope.clear = function () {

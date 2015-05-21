@@ -18,8 +18,8 @@ app.factory('authenticationService', function () {
 
     service.getHeaders = function getHeaders() {
         return {
-            Authorization: "Bearer " + localStorage['accessToken']
-        };
+            headers: { Authorization: "Bearer " + localStorage['accessToken'] }
+        }
     };
 
     service.isLoggedIn = function isLoggedIn() {
