@@ -44,16 +44,10 @@ app.controller('authenticationController', function ($scope, $rootScope, $locati
     };
 
     $scope.logout = function logout() {
-        usersService.logout()
-            .then(function () {
-                notyService.showInfo("Successful Logout!");
-                authenticationService.clearCredentials();
-                $scope.isLoggedIn = authenticationService.isLoggedIn();
-                $location.path('/welcome');
-            },
-            function (serverError) {
-                notyService.showError("Unsuccessful Logout!", serverError);
-            });
+        authenticationService.clearCredentials();
+        $scope.isLoggedIn = authenticationService.isLoggedIn();
+        notyService.showInfo("Successful Logout!");
+        $location.path('/welcome');
     }
 
     $scope.clear = function () {
