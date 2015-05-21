@@ -1,9 +1,9 @@
 ﻿'use strict';
 
-app.controller('profileSidebarController', function ($scope, $location, personService, notyService) {
+app.controller('profileSidebarController', function ($scope, $location, profileService, notyService) {
 
     $scope.getDataAboutMe = function getAboutMe() {
-        personService.getDataAboutMe()
+        profileService.getDataAboutMe()
             .then(function (responseData) {
                 $scope.aboutMe = responseData;
             },

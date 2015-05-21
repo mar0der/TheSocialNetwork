@@ -1,9 +1,9 @@
 ﻿'use strict';
 
-app.controller('authenticationController', function ($scope, $rootScope, $location, $route, authenticationService, notyService) {
+app.controller('authenticationController', function ($scope, $rootScope, $location, $route, usersService, authenticationService, notyService) {
 
     var ClearData = function () {
-       // $scope.loginData = "";
+        //$scope.loginData = "";
         $scope.registerData = "";
         $scope.userData = "";
         $scope.passwordData = "";
@@ -14,8 +14,8 @@ app.controller('authenticationController', function ($scope, $rootScope, $locati
     //TODO: remove hardcoded login
     $scope.loginData = { username: "mar0der", password: "123456" };
 
-    $scope.login = function () {
-        authenticationService.login($scope.loginData)
+    $scope.login = function login() {
+        usersService.login($scope.loginData)
         .then(function (serverData) {
             notyService.showInfo("Successful Login!");
             authenticationService.setCredentials(serverData);
@@ -28,8 +28,8 @@ app.controller('authenticationController', function ($scope, $rootScope, $locati
         });
     };
 
-    $scope.register = function () {
-        authenticationService.register($scope.registerData)
+    $scope.register = function register() {
+        usersService.register($scope.registerData)
         .then(function (serverData) {
             notyService.showInfo("Successful Registeration!");
             authenticationService.setCredentials(serverData);
@@ -43,11 +43,17 @@ app.controller('authenticationController', function ($scope, $rootScope, $locati
         });
     };
 
-    $scope.logout = function () {
-        notyService.showInfo("Successful Logout!");
-        authenticationService.clearCredentials();
-        $scope.isLoggedIn = authenticationService.isLoggedIn();
-        $location.path('/welcome');
+    $scope.logout = function logout() {
+        usersService.logout()
+            .then(function () {
+                notyService.showInfo("Successful Logout!");
+                authenticationService.clearCredentials();
+                $scope.isLoggedIn = authenticationService.isLoggedIn();
+                $location.path('/welcome');
+            },
+            function (serverError) {
+                notyService.showError("Unsuccessful Logout!", serverError);
+            });
     }
 
     $scope.clear = function () {

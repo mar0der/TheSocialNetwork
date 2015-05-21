@@ -1,11 +1,11 @@
 ﻿'use strict';
 
-app.controller('feedController', function($scope, $rootScope, $location, $interval, configService, feedService, notyService) {
+app.controller('feedController', function($scope, $rootScope, $location, $interval, configService, profileService, notyService) {
 
     $scope.config = configService;
 
     $scope.getMyFeed = function() {
-        feedService.getMyFeed()
+        profileService.getMyFeed('', 10)
             .then(function(responseData) {
                     $scope.feedData = responseData;
                 },

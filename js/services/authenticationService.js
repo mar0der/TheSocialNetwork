@@ -1,68 +1,28 @@
-﻿ 'use strict';
+﻿'use strict';
 
-app.factory('authenticationService', function ($http, $q, baseServiceUrl) {
+app.factory('authenticationService', function () {
     var service = {};
 
-    var serviceUrl = baseServiceUrl + '/users';
-
-    service.login = function (loginData) {
-        var deferred = $q.defer();
-        $http.post(serviceUrl + '/login', loginData)
-            .success(function (data, status, headers, config) {
-                deferred.resolve (data);
-            })
-            .error(function (errorData) {
-                deferred.reject (errorData);
-            });
-        return deferred.promise;
-    };
-
-    service.register = function (registerData) {
-        var deferred = $q.defer();
-        $http.post(serviceUrl + '/register', registerData)
-            .success(function(data, status, headers, config) {
-                deferred.resolve(data, status, headers, config);
-            })
-            .error(function(errorData) {
-                deferred.reject(errorData);
-            });
-        return deferred.promise;
-    };
-
-    //service.GetUserProfile = function (success, error) {
-    //    $http.get(serviceUrl + '/profile', { headers: this.GetHeaders() })
-    //        .success(function (data, status, headers, config) {
-    //            success(data)
-    //        }).error(error);
-    //};
-
-    //service.EditUserProfile = function (editUserData, success, error) {
-    //    $http.put(serviceUrl + '/profile', editUserData, { headers: this.GetHeaders() })
-    //        .success(function (data, status, headers, config) {
-    //            success(data)
-    //        }).error(error);
-    //};
-
-    service.setCredentials = function (serverData) {
+    service.setCredentials = function setCredentials(serverData) {
         localStorage['accessToken'] = serverData.access_token;
         localStorage['username'] = serverData.userName;
     };
 
-    service.getUsername = function () {
+    service.getUsername = function getUsername() {
         return localStorage['username'];
     };
 
-    service.clearCredentials = function () {
+    service.clearCredentials = function clearCredentials() {
         localStorage.clear();
     };
 
-    service.getHeaders = function () {
+    service.getHeaders = function getHeaders() {
         return {
             Authorization: "Bearer " + localStorage['accessToken']
         };
     };
 
-    service.isLoggedIn = function () {
+    service.isLoggedIn = function isLoggedIn() {
         if (localStorage['accessToken']) {
             return true;
         }
