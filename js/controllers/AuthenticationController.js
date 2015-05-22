@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-app.controller('authenticationController', function ($scope, $rootScope, $location, $route, usersService, authenticationService, notyService) {
+app.controller('authenticationController', function ($scope, $rootScope, $location, $route, $routeParams, usersService, authenticationService, notyService) {
 
     var clearData = function () {
         //$scope.loginData = "";
@@ -57,6 +57,23 @@ app.controller('authenticationController', function ($scope, $rootScope, $locati
                 $location.path('/welcome');
             });
     }
+
+    $scope.isMe = function isMe() {
+        if (($location.path() === '/' + authenticationService.getUsername() || $location.path() === "/") && authenticationService.isLoggedIn()) {
+            return true;
+        }
+        return false;
+    }
+
+    //$scope.isRealProfile = function isRealProfie() {
+    //    var username = $routeParams.username;
+    //    usersService.getUserPreviewData(username)
+    //        .then(function (responseData) {
+    //            $scope.isRealPerson = responseData;
+    //        }, function () {
+    //            $scope.isRealPerson = false;
+    //        });
+    //}
 
     $scope.clear = function () {
         $route.reload();

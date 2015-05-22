@@ -2,11 +2,12 @@
 
 app.controller('feedController', function($scope, $rootScope, $location, $interval, configService, profileService, notyService) {
 
+   // alert($scope.isMe());
     $scope.config = configService;
 
-    $scope.getMyFeed = function() {
+    $scope.getMyFeed = function () {
         profileService.getMyFeed('', 10)
-            .then(function(responseData) {
+            .then(function (responseData) {
                     $scope.feedData = responseData;
                 },
                 function (serverError) {
@@ -16,7 +17,13 @@ app.controller('feedController', function($scope, $rootScope, $location, $interv
 
     $scope.getMyFeed();
 
-    //uncomment when we are ready for tests
+    //$rootScope.$on('$locationChangeStart', function () {
+    //    alert(1);
+
+    //});
+
+
+//uncomment when we are ready for tests
     //function refreshNewsFeed() {
     //    if ($location.path() === '/') {
     //        console.log('feed ' + new Date().toISOString());

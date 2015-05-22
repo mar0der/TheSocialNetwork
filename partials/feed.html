@@ -10,7 +10,7 @@
             </div>
             <div class="media-body media-left">
                 <h4 class="media-heading">{{post.author.name}}</h4>
-                <span class="blog-post-meta">{{post.date}}</span>
+                <span class="blog-post-meta">{{post.date| date : "dd MMM yyyy  hh:mm a"}}</span>
                 <p>
                     {{post.postContent}}
                 </p>
