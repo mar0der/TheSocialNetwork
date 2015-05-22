@@ -65,15 +65,9 @@ app.controller('authenticationController', function ($scope, $rootScope, $locati
         return false;
     }
 
-    //$scope.isRealProfile = function isRealProfie() {
-    //    var username = $routeParams.username;
-    //    usersService.getUserPreviewData(username)
-    //        .then(function (responseData) {
-    //            $scope.isRealPerson = responseData;
-    //        }, function () {
-    //            $scope.isRealPerson = false;
-    //        });
-    //}
+    $scope.setUsersVars = function(username) {
+        alert(username);
+    }
 
     $scope.clear = function () {
         $route.reload();

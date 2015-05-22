@@ -14,8 +14,11 @@ app.config(function ($routeProvider) {
             templateUrl: 'partials/register.html'
         })
         .when('/welcome', {
-            templateUrl: 'partials/welcome.html',
-            controller: 'authenticationController'
+            templateUrl: 'partials/welcome.html'
+        })
+        .when('/404', {
+            templateUrl: 'partials/error.html',
+            controller: 'errorController'
         })
         .when('/profile', {
             templateUrl: 'partials/profileEdit.html',
@@ -35,11 +38,14 @@ app.config(function ($routeProvider) {
 
 app.run(function ($rootScope, $location, authenticationService) {
     $rootScope.$on('$locationChangeStart', function (event) {
-        if ($location.path().indexOf("login") === -1 && $location.path().indexOf("register") === -1 && !authenticationService.isLoggedIn()) {
-            $location.path("/welcome");
+        if ($location.path().indexOf('login') === -1 && $location.path().indexOf('register') === -1 && !authenticationService.isLoggedIn()) {
+            $location.path('/welcome');
         }
-        if (($location.path().indexOf("login") !== -1 || $location.path().indexOf("register") !== -1 || $location.path().indexOf("welcome") !== -1) && authenticationService.isLoggedIn()) {
+        var deniedPaths = ['/login', '/register', '/welcome'];
+
+        if (authenticationService.isLoggedIn() && deniedPaths.indexOf($location.path()) !== -1) {
             $location.path("/");
+
         }
     });
 });

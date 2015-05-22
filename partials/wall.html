@@ -1,9 +1,6 @@
 ﻿<div class="col-lg-{{config.leftSidebarCols}}" ng-include="'partials/profileSidebar.html'" ng-if="isLoggedIn"></div>
-
-
-<div class="col-lg-{{config.contentCols}}" ng-controller="feedController">
-    {{myWall}}
-    <!--<div class="well well-lg" ng-repeat="post in feedData">
+<div class="col-lg-{{config.contentCols}}">
+    <div class="well well-lg" ng-repeat="post in wallData">
         <div class="media">
             <div class="media-left">
                 <a href="#">
@@ -11,7 +8,7 @@
                 </a>
             </div>
             <div class="media-body media-left">
-                <h4 class="media-heading">{{post.author.name}}</h4>
+                <h4 class="media-heading"><a href="#/{{post.author.username}}">{{post.author.name}}</a></h4>
                 <span class="blog-post-meta">{{post.date| date : "dd MMM yyyy  hh:mm a"}}</span>
                 <p>
                     {{post.postContent}}
@@ -22,6 +19,6 @@
                 </ul>
             </div>
         </div>
-    </div>-->
+    </div>
 </div>
 <div class="col-lg-{{config.rightSidebarCols}}" ng-include="'partials/friendsSidebar.html'" ng-if="isLoggedIn"></div>

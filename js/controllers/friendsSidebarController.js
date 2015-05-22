@@ -1,7 +1,10 @@
 ﻿'use strict';
 
-app.controller('friendsSidebarController', function ($scope, profileService, $location, $routeParams, usersService) {
+app.controller('friendsSidebarController', function ($scope, $routeParams, profileService, usersService) {
     $scope.showFriends = false;
+
+    var username = $routeParams.username;
+
     if ($scope.isMe()) {
         profileService.getOwnFriendsPreview()
             .then(function (responseData) {
@@ -9,22 +12,15 @@ app.controller('friendsSidebarController', function ($scope, profileService, $lo
                 $scope.showFriends = true;
             });
     } else {
-        usersService.getUserPreviewData($routeParams.username)
-            .then(function(responseData) {
+        usersService.getUserPreviewData(username)
+            .then(function (responseData) {
                 if (responseData.isFriend) {
-                    usersService.getFriendsFriendListPreview($routeParams.username)
+                    usersService.getFriendsFriendListPreview(username)
                         .then(function (friendData) {
                             $scope.showFriends = true;
                             $scope.data = friendData;
-                        }, function() {
-                            $scope.showFriends = false;
                         });
-                } else {
-                    $scope.showFriends = false;
                 }
-            }, function() {
-                $scope.showFriends = false;
             });
-
     }
 });

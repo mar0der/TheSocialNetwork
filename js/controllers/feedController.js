@@ -2,7 +2,6 @@
 
 app.controller('feedController', function($scope, $rootScope, $location, $interval, configService, profileService, notyService) {
 
-   // alert($scope.isMe());
     $scope.config = configService;
 
     $scope.getMyFeed = function () {
@@ -14,14 +13,7 @@ app.controller('feedController', function($scope, $rootScope, $location, $interv
                     notyService.showError("Unable to load your feed", serverError);
                 });
     };
-
     $scope.getMyFeed();
-
-    //$rootScope.$on('$locationChangeStart', function () {
-    //    alert(1);
-
-    //});
-
 
 //uncomment when we are ready for tests
     //function refreshNewsFeed() {
