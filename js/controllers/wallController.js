@@ -3,7 +3,7 @@
 app.controller('wallController', function ($scope, $location, $routeParams, configService, usersService, authenticationService, postsService, notyService) {
     $scope.config = configService;
     $scope.userIsFriend = false;
-    $scope.isMyWall = false;
+    $scope.isMyWall = true;
     $scope.wallData = [];
 
     var username = $routeParams.username;
@@ -12,22 +12,16 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
         usersService.getUsersWallByPages(username, '', 10)
             .then(function (responseData) {
                 $scope.wallData = responseData;
-
             }, function (serverError) {
                 notyService.showError('Unable to load ' + username + 'wall', serverError);
             });
     }
 
-    $scope.postOnWall = function postOnWall(postContent) {
-
+    $scope.postOnWall = function postOnWall() {
         if ($scope.isMyWall || $scope.isMyFriend) {
-            postsService.addPost(postContent, username)
+            postsService.addPost($scope.postContent, username)
                 .then(function (responseData) {
                     $scope.wallData.unshift(responseData);
-                    alert(1);
-
-                    console.log($scope.postContent);
-
                     $scope.postContent = '';
                 }, function (serverError) {
                     notyService.showError('Unable to post on ' + username + '`s wall', serverError);
@@ -45,17 +39,10 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
                     $scope.isMyFriend = true;
                 } else {
                     $scope.isMyFriend = false;
-
                 }
                 $scope.showWall(username);
             }, function () {
                 $location.path('/404');
             });
     }
-    
-
-
-
-
-
 });

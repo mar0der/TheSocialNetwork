@@ -1,9 +1,9 @@
-﻿<div class="col-lg-{{config.leftSidebarCols}}" ng-include="'partials/profileSidebar.html'" ng-if="isLoggedIn"></div>
-<div class="col-lg-{{config.contentCols}}">
-    <div class="well" ng-if="isMyWall || isMyFriend">
-        <form ng-submit="postOnWall(postContent);" name="addPostForm">
+﻿<div class="col-lg-{{config.leftSidebarCols}}"  ng-include="'partials/profileSidebar.html'" ng-if="isLoggedIn"></div>
+<div class="col-lg-{{config.contentCols}}" >
+    <div class="well" ng-show="isMyWall || isMyFriend">
+        <form ng-submit="postOnWall();" name="addPostForm">
             <div class="form-group">
-                <textarea class="form-control" placeholder="What`s on your mind?" ng-model="postContent" required>{{post}}</textarea>
+                <textarea class="form-control" placeholder="What`s on your mind?" ng-model="postContent" required></textarea>
             </div>
             <button type="submit" class="btn btn-primary" ng-disabled="addPostForm.$invalid">Post</button>
         </form>
