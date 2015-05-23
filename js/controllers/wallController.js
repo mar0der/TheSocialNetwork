@@ -22,8 +22,13 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
 
         if ($scope.isMyWall || $scope.isMyFriend) {
             postsService.addPost(postContent, username)
-                .then(function() {
+                .then(function (responseData) {
+                    $scope.wallData.unshift(responseData);
+                    alert(1);
 
+                    console.log($scope.postContent);
+
+                    $scope.postContent = '';
                 }, function (serverError) {
                     notyService.showError('Unable to post on ' + username + '`s wall', serverError);
                 });
