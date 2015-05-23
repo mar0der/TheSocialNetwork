@@ -1,9 +1,10 @@
 ﻿<div class="col-lg-{{config.leftSidebarCols}}" ng-include="'partials/profileSidebar.html'" ng-if="isLoggedIn"></div>
 <div class="col-lg-{{config.contentCols}}">
-    <div class="well">
-        <form>
+    <div class="well" ng-if="isMyWall || isMyFriend">
+        <form ng-submit="postOnWall(postContent);">
             <div class="form-group">
-                <textarea type="email" class="form-control" placeholder="What`s on your mind"></textarea>
+                <textarea class="form-control" placeholder="What`s on your mind?" ng-model="postContent"></textarea>
+                {{post}}
             </div>
             <button type="submit" class="btn btn-primary">Post</button>
         </form>

@@ -1,19 +1,35 @@
 ﻿'use strict';
 
-app.controller('wallController', function ($scope, $location, $routeParams, configService, usersService, authenticationService, notyService) {
+app.controller('wallController', function ($scope, $location, $routeParams, configService, usersService, authenticationService, postsService, notyService) {
     $scope.config = configService;
     $scope.userIsFriend = false;
+    $scope.isMyWall = false;
+    $scope.wallData = [];
+
     var username = $routeParams.username;
 
     $scope.showWall = function showWall(username) {
         usersService.getUsersWallByPages(username, '', 10)
             .then(function (responseData) {
                 $scope.wallData = responseData;
+
             }, function (serverError) {
                 notyService.showError('Unable to load ' + username + 'wall', serverError);
             });
     }
-    
+
+    $scope.postOnWall = function postOnWall(postContent) {
+
+        if ($scope.isMyWall || $scope.isMyFriend) {
+            postsService.addPost(postContent, username)
+                .then(function() {
+
+                }, function (serverError) {
+                    notyService.showError('Unable to post on ' + username + '`s wall', serverError);
+                });
+        }
+    }
+    //the script starts here
     if (username === authenticationService.getUsername()) {
         $scope.isMyWall = true;
         $scope.showWall(username);
@@ -24,12 +40,14 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
                     $scope.isMyFriend = true;
                 } else {
                     $scope.isMyFriend = false;
+
                 }
                 $scope.showWall(username);
             }, function () {
                 $location.path('/404');
             });
     }
+    
 
 
 
