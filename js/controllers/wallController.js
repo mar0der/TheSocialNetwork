@@ -31,6 +31,11 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
         }
     }
 
+    $scope.postCommentOnPost = function postCommentOnPost(post) {
+        console.log($scope.commentContent);
+
+    }
+
     //the script starts here
     if (username === authenticationService.getUsername()) {
         $scope.isMyWall = true;

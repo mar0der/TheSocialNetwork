@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('fakeBook', ['ngRoute', 'ngResource', 'ui.bootstrap']);
+var app = angular.module('fakeBook', ['ngRoute', 'ngResource', 'ui.bootstrap', 'monospaced.elastic']);// 
 
 app.constant('baseServiceUrl', 'http://softuni-social-network.azurewebsites.net/api/');
 
