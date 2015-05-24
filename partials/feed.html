@@ -23,7 +23,10 @@
                     <li role="presentation"><a href="#">Like <span class="badge">{{post.likesCount}}</span></a></li>
                     <li role="presentation"><a href="#">Comments <span class="badge">{{post.totalCommentsCount}}</span></a></li>
                 </ul>
+
             </div>
+            <hr />
+            <div ng-include="'partials/commentView.html'" ng-repeat="comment in post.comments"></div>
         </div>
     </div>
 </div>

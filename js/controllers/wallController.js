@@ -12,6 +12,8 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
         usersService.getUsersWallByPages(username, '', 10)
             .then(function (responseData) {
                 $scope.wallData = responseData;
+                console.log($scope.wallData);
+
             }, function (serverError) {
                 notyService.showError('Unable to load ' + username + 'wall', serverError);
             });
@@ -28,6 +30,7 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
                 });
         }
     }
+
     //the script starts here
     if (username === authenticationService.getUsername()) {
         $scope.isMyWall = true;
