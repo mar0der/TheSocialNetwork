@@ -1,6 +1,7 @@
 ﻿'use strict';
 
-app.controller('friendsController', function($scope, $location, $routeParams, profileService, usersService, authenticationService, notyService) {
+app.controller('friendsController', function ($scope, $location, $routeParams, configService, profileService, usersService, authenticationService, notyService) {
+    $scope.config = configService;
     $scope.showFriends = function showFriends() {
         var username = $routeParams.username;
         if (username === authenticationService.getUsername() || username === '') {
