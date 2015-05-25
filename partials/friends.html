@@ -1,0 +1,14 @@
+﻿<div class="col-lg-{{config.leftSidebarCols}}" ng-include="'partials/profileSidebar.html'" ng-if="isLoggedIn"></div>
+<div class="col-lg-19">
+    <div class="my-margin-bottom-15">
+        <h4 class="my-inline">Filter by name: </h4>
+        <input class="my-inline" type="text" ng-model="nameFilter" />
+    </div>
+    <div class="col-lg-5 well my-margin-right-15" ng-repeat="friend in freindsData | filter: nameFilter">
+        <img class="img-circle center-block" ng-src="{{friend.profileImageData}}" alt="{{friend.name}}`s profile picture" />
+        <div class="text-center my-margin-top-5">
+            <a ng-href="#/{{friend.username}}">{{friend.name}}</a>
+        </div>
+    </div>
+</div>
+
