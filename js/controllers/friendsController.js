@@ -8,7 +8,6 @@ app.controller('friendsController', function ($scope, $location, $routeParams, c
             profileService.getOwnFriends()
                 .then(function (responseData) {
                     $scope.freindsData = responseData;
-                    console.log(responseData);
                 }, function (serverError) {
                     notyService.showError('Cannot pull your friends list. Please check your internet connection or try later.', serverError);
                 });
@@ -16,7 +15,6 @@ app.controller('friendsController', function ($scope, $location, $routeParams, c
             usersService.getFriendsDetailedFriendList(username)
                 .then(function (responseData) {
                     $scope.freindsData = responseData;
-                    console.log(responseData);
                 }, function() {
                     $location.path('404');
                 });
