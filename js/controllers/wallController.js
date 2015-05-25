@@ -5,6 +5,7 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
     $scope.userIsFriend = false;
     $scope.isMyWall = true;
     $scope.wallData = [];
+    $scope.comment = {};
 
     var username = $routeParams.username;
 
@@ -31,9 +32,8 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
         }
     }
 
-    $scope.postCommentOnPost = function postCommentOnPost(post) {
-        console.log($scope.commentContent);
-
+    $scope.postCommentOnPost = function postCommentOnPost() {
+        console.log($scope.comment.commentContent);
     }
 
     //the script starts here

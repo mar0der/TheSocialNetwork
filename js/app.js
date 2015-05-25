@@ -16,6 +16,10 @@ app.config(function ($routeProvider) {
         .when('/welcome', {
             templateUrl: 'partials/welcome.html'
         })
+        .when('/:username/friends', {
+            templateUrl: 'partials/friends.html',
+            controller: 'friendsController'
+        })
         .when('/404', {
             templateUrl: 'partials/error.html',
             controller: 'errorController'
