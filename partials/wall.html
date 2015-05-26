@@ -1,15 +1,15 @@
-﻿<!--<div class="col-lg-{{config.leftSidebarCols}}" ng-include="'partials/profileSidebar.html'" ng-if="isLoggedIn"></div>-->
+﻿<div class="col-lg-{{config.leftSidebarCols}}" ng-include="'partials/profileSidebar.html'" ng-if="isLoggedIn"></div>
 <div class="col-lg-{{config.contentCols}}">
-    <!--<div class="well" ng-show="isMyWall || isMyFriend">
+    <div class="well" ng-show="isMyWall || isMyFriend">
         <form ng-submit="postOnWall();" name="addPostForm">
             <div class="form-group">
                 <textarea class="form-control msd-elastic" placeholder="What`s on your mind?" ng-model="postContent" required></textarea>
             </div>
             <button type="submit" class="btn btn-primary" ng-disabled="addPostForm.$invalid">Post</button>
         </form>
-    </div>-->
+    </div>
     <div class="well well-lg" ng-repeat="post in wallData">
-        <!--<div class="media">
+        <div class="media">
             <div class="media-left">
                 <a href="#">
                     <img class="media-object img-circle" ng-src="{{post.author.profileImageData}}" alt="{{post.author.name}}'s profile picture" style="width: 60px; height: 60px;">
@@ -33,16 +33,16 @@
                     <li role="presentation"><a href="#">Comments <span class="badge">{{post.totalCommentsCount}}</span></a></li>
                 </ul>
             </div>
-        </div>-->
+        </div>
 
         <hr />
 
-        <!--<div ng-include="'partials/commentView.html'" ng-repeat="comment in post.comments"></div>
+        <div ng-include="'partials/commentView.html'" ng-repeat="comment in post.comments"></div>
         <div class="media-left">
             <a href="#" style="display: inline;">
                 <img class="media-object img-circle" ng-src="{{post.author.profileImageData}}" alt="{{post.author.name}}'s profile picture" style="width: 42px; height: 42px;">
             </a>
-        </div>-->
+        </div>
 
         <div class="media-body media-left">
             <!--<form ng-submit="postCommentOnPost();" name="addCommentOnPostForm" style="display: inline;">-->
@@ -58,4 +58,4 @@
 
     </div>
 </div>
-<!--<div class="col-lg-{{config.rightSidebarCols}}" ng-include="'partials/friendsSidebar.html'" ng-if="isLoggedIn"></div>-->
+<div class="col-lg-{{config.rightSidebarCols}}" ng-include="'partials/friendsSidebar.html'" ng-if="isLoggedIn"></div>

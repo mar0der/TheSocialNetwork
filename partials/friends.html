@@ -4,8 +4,9 @@
         <h4 class="my-inline">Filter by name: </h4>
         <input class="my-inline" type="text" ng-model="nameFilter" />
     </div>
-    <div class="col-lg-5 well my-margin-right-15" ng-repeat="friend in freindsData | filter: nameFilter">
-        <img class="img-circle center-block" ng-src="{{friend.profileImageData}}" alt="{{friend.name}}`s profile picture" />
+    <div class="col-lg-5 well my-margin-right-15" ng-repeat="friend in freindsData | filter: nameFilter" >
+        <!--<img class="img-circle center-block" ng-src="{{friend.profileImageData}}" alt="{{friend.name}}`s profile picture" />-->
+        <img class="img-circle center-block" ng-src="{{friend.profileImageData}}" alt="{{friend.name}}`s profile picture" style="height: 96px; width: 96px;"/>
         <div class="text-center my-margin-top-5">
             <a ng-href="#/{{friend.username}}">{{friend.name}}</a>
         </div>
