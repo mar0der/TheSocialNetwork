@@ -6,6 +6,7 @@ app.controller('navigationController', function ($scope, $location, $timeout, $i
     $scope.showSearchResults = false;
     $scope.searchPattern = '';
 
+
     //uncomment when ready for testing
     function refreshPendingRequests() {
         profileService.getFriendsRequests()
@@ -50,6 +51,8 @@ app.controller('navigationController', function ($scope, $location, $timeout, $i
         }, 400);
 
     }
+
+    refreshPendingRequests();
 
     var requestsInterval = $interval(function () {
         refreshPendingRequests();
