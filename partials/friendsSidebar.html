@@ -2,7 +2,7 @@
     <div ng-if="showFriends">
         <h5 class="nav-tabs">FRIENDS. <a href="#/{{username}}/friends">See All {{data.totalCount}}</a></h5>
         <a ng-repeat="friend in data.friends" href="#/{{friend.username}}" popover-trigger="mouseenter" popover="{{friend.name}}">
-            <img class="img-circle" ng-src="{{friend.profileImageData}}" alt="{{friend.profileImageData}}" style="width: 64px; height: 64px;"/>
+            <img class="img-circle my-avatar-64" ng-src="{{friend.profileImageData}}" alt="{{friend.profileImageData}}" />
         </a>
         
     </div>

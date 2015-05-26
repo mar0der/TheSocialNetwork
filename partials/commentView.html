@@ -1,10 +1,10 @@
 ﻿<div class="media-left">
     <a href="#">
-        <img class="media-object img-circle" ng-src="{{comment.author.profileImageData}}" alt="{{comment.author.name}}'s profile picture" style="width: 42px; height: 42px;">
+        <img class="media-object img-circle my-avatar-42" ng-src="{{comment.author.profileImageData}}" alt="{{comment.author.name}}'s profile picture">
     </a>
 </div>
 <div class="media-body media-left" >
     <span class="media-heading"><a href="#/{{comment.author.username}}">{{comment.author.name}}</a></span>
     {{comment.commentContent}}
-    <div style="margin-bottom: 10px;">{{comment.date}} - <a href="#">Like</a></div>
+    <div class="my-margin-bottom-15">{{comment.date}} - <a href="#">Like</a></div>
 </div>
