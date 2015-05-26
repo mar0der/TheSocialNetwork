@@ -5,14 +5,16 @@ app.controller('navigationController', function ($scope, $location, $timeout, $i
     $scope.showNotification = false;
     $scope.showSearchResults = false;
     $scope.searchPattern = '';
-
-
+    $scope.pendingRequestsDropdownShow = false;
+    $scope.pendingRequests = [];
+    
     //uncomment when ready for testing
     function refreshPendingRequests() {
         profileService.getFriendsRequests()
             .then(function (responseData) {
                 var count = responseData.length;
                 if (count) {
+                    $scope.pendingRequests = responseData;
                     $scope.showNotification = true;
                     $scope.requestsCount = count;
                 } else {
@@ -23,6 +25,12 @@ app.controller('navigationController', function ($scope, $location, $timeout, $i
             });
     }
 
+    function getElementCoordinates(id, verticalOffset, horizontalOffset) {
+        var element = document.getElementById(id);
+        var box = element.getBoundingClientRect();
+        return { top: box.top + (verticalOffset || 0), left: box.left + (horizontalOffset || 0) };
+    }
+
     $scope.searchByUsername = function searchByUsername() {
         if ($scope.searchPattern !== '') {
             usersService.searchUserByName($scope.searchPattern)
@@ -30,6 +38,7 @@ app.controller('navigationController', function ($scope, $location, $timeout, $i
                     if (responseData.length) {
                         $scope.searchResults = responseData;
                         $scope.showSearchResults = true;
+                        $scope.searchResultFormCoordinates = getElementCoordinates('search-form', + 48);
                     } else {
                         $scope.showSearchResults = false;
                     }
@@ -50,6 +59,16 @@ app.controller('navigationController', function ($scope, $location, $timeout, $i
             $scope.searchPattern = '';
         }, 400);
 
+    }
+
+    $scope.showPendingRequestsDetails = function showPendingRequestsDetails() {
+        $scope.pendingRequestsDropdownShow = true;
+        $scope.pendingRequestsFormCoordinates = getElementCoordinates('pending-requests-icon', + 52);
+        
+    }
+
+    $scope.hidePendingRequestsDetails = function hidePendingRequestsDetails() {
+        $scope.pendingRequestsDropdownShow = false;
     }
 
     refreshPendingRequests();

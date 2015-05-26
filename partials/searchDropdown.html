@@ -1,0 +1,18 @@
+﻿<div ng-show="showSearchResults" class="list-content drop-down-search" style="top:{{searchResultFormCoordinates.top}}px; left: {{searchResultFormCoordinates.left}}px;">
+    <ul class="list-group">
+        <li href="#" ng-repeat="user in searchResults" class="list-group-item text-left">
+            <a href="#/{{user.username}}">
+                <img class="img-circle my-avatar-42" ng-src="{{user.profileImageData}}" alt="{{user.username}}`s profile picture" />
+            </a>
+            <label class="name">
+                <a href="#/{{user.username}}" class="name ng-binding">
+                    {{user.name}}
+                </a>
+            </label>
+            <div class="break"></div>
+        </li>
+        <li class="list-group-item text-left">
+            <span>{{searchResults.length || 0}} results total</span>
+        </li>
+    </ul>
+</div>
