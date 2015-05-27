@@ -12,10 +12,10 @@ app.controller('authenticationController', function ($scope, $rootScope, $locati
     $scope.isLoggedIn = authenticationService.isLoggedIn();
 
     //TODO: remove hardcoded login
-    $scope.loginData = { username: "der0mer", password: "123456" };
+    //$scope.loginData = { username: "der0mer", password: "123456" };
 
-    $scope.login = function login() {
-        usersService.login($scope.loginData)
+    $scope.login = function login(loginData) {
+        usersService.login(loginData)
         .then(function (serverData) {
             notyService.showInfo("Successful Login!");
             authenticationService.setCredentials(serverData);
@@ -28,21 +28,18 @@ app.controller('authenticationController', function ($scope, $rootScope, $locati
         });
     };
 
-    $scope.register = function register() {
-        console.log($scope.registerData);
-
-        //usersService.register($scope.registerData)
-        //.then(function (serverData) {
-        //    notyService.showInfo("Successful Registeration!");
-        //    authenticationService.setCredentials(serverData);
-        //    $scope.isLoggedIn = authenticationService.isLoggedIn();
-        //    clearData();
-        //    $rootScope.$broadcast('register');
-        //    $location.path('/');
-        //},
-        //function (serverError) {
-        //    notyService.showError("Unsuccessful Registeration!", serverError);
-        //});
+    $scope.register = function register(registerData) {
+        usersService.register(registerData)
+        .then(function (serverData) {
+            notyService.showInfo("Successful Registeration!");
+            authenticationService.setCredentials(serverData);
+            $scope.isLoggedIn = authenticationService.isLoggedIn();
+            clearData();
+            $location.path('/');
+        },
+        function (serverError) {
+            notyService.showError("Unsuccessful Registeration!", serverError);
+        });
     };
 
     $scope.logout = function logout() {

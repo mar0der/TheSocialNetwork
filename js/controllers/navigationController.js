@@ -72,7 +72,7 @@ app.controller('navigationController', function ($scope, $location, $timeout, $i
 
     var requestsInterval = $interval(function () {
         refreshPendingRequests();
-    }, 6000);
+    }, 60000);
 
     $scope.$on('$destroy', function () {
         $interval.cancel(requestsInterval);

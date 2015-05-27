@@ -1,24 +1,23 @@
-﻿<div class="col-lg-5"></div>
-<div class="well bs-component col-lg-14">
-    <form class="form-horizontal" name="registerForm" ng-submit="register()">
+﻿<div class="well bs-component col-lg-14 col-lg-offset-5">
+    <form class="form-horizontal" name="registerForm" ng-submit="register(registerData)">
         <fieldset>
             <legend>Register</legend>
             <div class="form-group">
-                <label for="inputUsername" class="col-lg-4 control-label">Username</label>
+                <label for="input-username" class="col-lg-4 control-label">Username</label>
                 <div class="col-lg-20">
-                    <input type="text" class="form-control" id="inputUsername" ng-model="registerData.username" placeholder="Username" required="required">
+                    <input type="text" class="form-control" id="input-username" ng-model="registerData.username" placeholder="Username" required="required">
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputPassword" class="col-lg-4 control-label">Password</label>
+                <label for="input-password" class="col-lg-4 control-label">Password</label>
                 <div class="col-lg-20">
-                    <input type="password" class="form-control" id="inputPassword" ng-model="registerData.password" placeholder="Password" required="required">
+                    <input type="password" class="form-control" id="input-password" ng-model="registerData.password" placeholder="Password" required="required">
                 </div>
             </div>
             <div class="form-group">
-                <label for="confirmPassword" class="col-lg-4 control-label">Confirm Password</label>
+                <label for="confirm-password" class="col-lg-4 control-label">Confirm Password</label>
                 <div class="col-lg-20">
-                    <input type="password" class="form-control" id="confirmPassword" ng-model="registerData.confirmPassword" placeholder="Confirm Password" required="required">
+                    <input type="password" class="form-control" id="confirm-password" ng-model="registerData.confirmPassword" placeholder="Confirm Password" required="required">
                 </div>
             </div>
             <div class="form-group">
@@ -28,21 +27,21 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="inputEmail" class="col-lg-4 control-label">Email</label>
+                <label for="input-email" class="col-lg-4 control-label">Email</label>
                 <div class="col-lg-20">
-                    <input type="email" class="form-control" id="inputEmail" ng-model="registerData.email" placeholder="Email" required="required">
+                    <input type="email" class="form-control" id="input-email" ng-model="registerData.email" placeholder="Email" required="required">
                 </div>
             </div>
-            <div class="form-group">
-                <label for="inputGender" class="col-lg-4 control-label">Gender</label>
-                <div class="col-lg-20">
-                    <label class="radio-inline">
-                        <input type="radio" name="inlineRadioOptions" id="inputGender1" value="1" ng-model="registerData.gender" /> Male
+            <div for="gender-group " class="form-group">
+                <label class="col-lg-4 control-label">Gender</label>
+                <div id="gender-group" class="col-lg-20">
+                    <label for="inputGender1" class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inputGender1" value="1" ng-model="registerData.gender" required /> Male
                     </label>
-                    <label class="radio-inline">
+                    <label for="inputGender2" class="radio-inline">
                         <input type="radio" name="inlineRadioOptions" id="inputGender2" value="2" ng-model="registerData.gender" /> Female
                     </label>
-                    <label class="radio-inline">
+                    <label for="inputGender3" class="radio-inline">
                         <input type="radio" name="inlineRadioOptions" id="inputGender3" value="0" ng-model="registerData.gender" /> Other
                     </label>
                 </div>
@@ -58,4 +57,3 @@
         </fieldset>
     </form>
 </div>
-<div class="col-lg-5"></div>

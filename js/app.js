@@ -7,11 +7,11 @@ app.constant('baseServiceUrl', 'http://softuni-social-network.azurewebsites.net/
 app.config(function ($routeProvider) {
 
     $routeProvider
-        .when('/login', {
-            templateUrl: 'partials/login.html'
-        })
         .when('/register', {
             templateUrl: 'partials/register.html'
+        })
+        .when('/login', {
+            templateUrl: 'partials/login.html'
         })
         .when('/welcome', {
             templateUrl: 'partials/welcome.html'
