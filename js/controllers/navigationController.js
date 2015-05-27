@@ -34,6 +34,51 @@ app.controller('navigationController', function ($scope, $location, $timeout, $i
         return { top: box.top + (verticalOffset || 0), left: box.left + (horizontalOffset || 0) };
     }
 
+    $scope.showPendingRequestsDetails = function showPendingRequestsDetails() {
+        $scope.pendingRequestsDropdownShow = true;
+        $scope.pendingRequestsFormCoordinates = getElementCoordinates('pending-requests-icon', +52);
+    }
+
+    $scope.hidePendingRequestsDetails = function hidePendingRequestsDetails() {
+        $scope.pendingRequestsDropdownShow = false;
+    }
+
+    $scope.acceptFriendRequest = function acceptFriendRequest(requestId) {
+        console.log(requestId);
+
+        profileService.resolveFriendsRequest(requestId, 'approved')
+            .then(function (responseData) {
+                $scope.pendingRequests = [];
+                refreshPendingRequests();
+                notyService.showInfo(responseData.message);
+            }, function (serverError) {
+                notyService.showError('An error occured while accepting this friend requet. ' + serverError);
+            });
+    }
+
+    $scope.rejectFriendRequest = function rejectFriendRequest(requestId) {
+        console.log(requestId);
+        profileService.resolveFriendsRequest(requestId, 'rejected')
+            .then(function (responseData) {
+                $scope.pendingRequests = [];
+                refreshPendingRequests();
+                notyService.showInfo(responseData.message);
+            }, function (serverError) {
+                notyService.showError('An error occured while rejecting this friend requet. ' + serverError);
+            });
+    }
+
+    refreshPendingRequests();
+
+    var requestsInterval = $interval(function () {
+        refreshPendingRequests();
+    }, 6000);
+
+    $scope.$on('$destroy', function () {
+        $interval.cancel(requestsInterval);
+    });
+
+
     $scope.searchByUsername = function searchByUsername() {
         if ($scope.searchPattern !== '') {
             usersService.searchUserByName($scope.searchPattern)
@@ -64,45 +109,5 @@ app.controller('navigationController', function ($scope, $location, $timeout, $i
 
     }
 
-    $scope.showPendingRequestsDetails = function showPendingRequestsDetails() {
-        $scope.pendingRequestsDropdownShow = true;
-        $scope.pendingRequestsFormCoordinates = getElementCoordinates('pending-requests-icon', +52);
-    }
 
-    $scope.hidePendingRequestsDetails = function hidePendingRequestsDetails() {
-        $scope.pendingRequestsDropdownShow = false;
-    }
-
-    $scope.acceptFriendRequest = function acceptFriendRequest(requestId) {
-        console.log(requestId);
-
-        profileService.resolveFriendsRequest(requestId, 'approved')
-            .then(function (responseData) {
-                refreshPendingRequests();
-                notyService.showInfo(responseData.message);
-            }, function (serverError) {
-                notyService.showError('An error occured while accepting this friend requet. ' + serverError);
-            });
-    }
-
-    $scope.rejectFriendRequest = function rejectFriendRequest(requestId) {
-        console.log(requestId);
-        profileService.resolveFriendsRequest(requestId, 'rejected')
-            .then(function (responseData) {
-                refreshPendingRequests();
-                notyService.showInfo(responseData.message);
-            }, function (serverError) {
-                notyService.showError('An error occured while rejecting this friend requet. ' + serverError);
-            });
-    }
-
-    refreshPendingRequests();
-
-    var requestsInterval = $interval(function () {
-        refreshPendingRequests();
-    }, 6000);
-
-    $scope.$on('$destroy', function () {
-        $interval.cancel(requestsInterval);
-    });
 });
