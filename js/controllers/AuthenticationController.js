@@ -11,9 +11,6 @@ app.controller('authenticationController', function ($scope, $rootScope, $locati
 
     $scope.isLoggedIn = authenticationService.isLoggedIn();
 
-    //TODO: remove hardcoded login
-    //$scope.loginData = { username: "der0mer", password: "123456" };
-
     $scope.login = function login(loginData) {
         usersService.login(loginData)
         .then(function (serverData) {
