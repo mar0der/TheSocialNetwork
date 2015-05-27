@@ -12,10 +12,7 @@ app.controller('friendsController', function ($scope, $location, $routeParams, c
                             friend.profileImageData = 'img/avatar.jpg';
                         }
                     });
-                    console.log(responseData);
                     $scope.freindsData = responseData;
-                    
-
                 }, function (serverError) {
                     notyService.showError('Cannot pull your friends list. Please check your internet connection or try later.', serverError);
                 });
@@ -27,7 +24,6 @@ app.controller('friendsController', function ($scope, $location, $routeParams, c
                             friend.profileImageData = 'img/avatar.jpg';
                         }
                     });
-                    console.log(responseData);
                     $scope.freindsData = responseData;
                 }, function() {
                     $location.path('404');

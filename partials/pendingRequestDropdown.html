@@ -1,7 +1,7 @@
 ﻿<div ng-show="pendingRequestsDropdownShow" class="list-content drop-down-pending-requests" >
     <ul class="list-group">
         <li href="#" ng-repeat="request in pendingRequests" class="list-group-item text-left">
-            <a href="#/{{user.username}}">
+            <a href="#/{{request.user.username}}">
                 <img class="img-circle my-avatar-42" ng-src="{{request.user.profileImageData}}" alt="{{request.user.username}}`s profile picture" />
             </a>
             <label class="name">
@@ -9,8 +9,8 @@
                     {{request.user.name}}
                 </a>
             </label>
-            <button class="bnt btn-danger btn-sm pull-right my-margin-left-5">Reject</button>
-            <button class="bnt btn-success btn-sm pull-right my-margin-left-5">Accept</button>
+            <button class="bnt btn-danger btn-sm pull-right my-margin-left-5"  ng-click="rejectFriendRequest(request.id)">Reject</button>
+            <button class="bnt btn-success btn-sm pull-right my-margin-left-5" ng-click="acceptFriendRequest(request.id)">Accept</button>
             <div class="break"></div>
         </li>
     </ul>

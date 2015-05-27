@@ -42,7 +42,7 @@ html {
 
 .drop-down-pending-requests {
     position: absolute;
-    min-width: 300px;
+    min-width: 325px;
     z-index: 1;
 }
 

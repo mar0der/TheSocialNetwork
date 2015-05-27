@@ -29,18 +29,20 @@ app.controller('authenticationController', function ($scope, $rootScope, $locati
     };
 
     $scope.register = function register() {
-        usersService.register($scope.registerData)
-        .then(function (serverData) {
-            notyService.showInfo("Successful Registeration!");
-            authenticationService.setCredentials(serverData);
-            $scope.isLoggedIn = authenticationService.isLoggedIn();
-            clearData();
-            $rootScope.$broadcast('register');
-            $location.path('/');
-        },
-        function (serverError) {
-            notyService.showError("Unsuccessful Registeration!", serverError);
-        });
+        console.log($scope.registerData);
+
+        //usersService.register($scope.registerData)
+        //.then(function (serverData) {
+        //    notyService.showInfo("Successful Registeration!");
+        //    authenticationService.setCredentials(serverData);
+        //    $scope.isLoggedIn = authenticationService.isLoggedIn();
+        //    clearData();
+        //    $rootScope.$broadcast('register');
+        //    $location.path('/');
+        //},
+        //function (serverError) {
+        //    notyService.showError("Unsuccessful Registeration!", serverError);
+        //});
     };
 
     $scope.logout = function logout() {
