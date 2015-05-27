@@ -11,7 +11,7 @@
             <div class="form-group">
                 <label for="inputPassword" class="col-lg-4 control-label">Password</label>
                 <div class="col-lg-20">
-                    <input type="password" class="form-control" id="inputPassword" ng-model="loginData.password" placeholder="Password" required="required">
+                    <input type="password" class="form-control" id="inputPassword" ng-model="loginData.password" ng-minlength="6" placeholder="Password" required="required">
                     <div class="checkbox">
                         <label>
                             <input type="checkbox"> Remember me
@@ -22,7 +22,7 @@
             <div class="form-group">
                 <div class="col-lg-20 col-lg-offset-4">
                     <a href="#/" class="btn btn-default">Cancel</a>
-                    <button type="submit" class="btn btn-primary">Login</button>
+                    <button type="submit" class="btn btn-primary" ng-disabled="loginForm.$invalid">Login</button>
                     <a href="#/register" class="btn btn-info col-lg-offset-8">Register Here...</a>
                 </div>
             </div>

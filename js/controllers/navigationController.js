@@ -68,8 +68,6 @@ app.controller('navigationController', function ($scope, $location, $timeout, $i
             });
     }
 
-    refreshPendingRequests();
-
     var requestsInterval = $interval(function () {
         refreshPendingRequests();
     }, 60000);
@@ -77,7 +75,6 @@ app.controller('navigationController', function ($scope, $location, $timeout, $i
     $scope.$on('$destroy', function () {
         $interval.cancel(requestsInterval);
     });
-
 
     $scope.searchByUsername = function searchByUsername() {
         if ($scope.searchPattern !== '') {
@@ -109,5 +106,21 @@ app.controller('navigationController', function ($scope, $location, $timeout, $i
 
     }
 
+    $scope.$on('login', function () {
+        $scope.showNotification = false;
+        $scope.showSearchResults = false;
+        $scope.searchPattern = '';
+        $scope.pendingRequestsDropdownShow = false;
+        $scope.pendingRequests = [];
+        refreshPendingRequests();
+    });
+
+    $scope.$on('logout', function () {
+        $scope.showNotification = false;
+        $scope.showSearchResults = false;
+        $scope.searchPattern = '';
+        $scope.pendingRequestsDropdownShow = false;
+        $scope.pendingRequests = [];
+    });
 
 });

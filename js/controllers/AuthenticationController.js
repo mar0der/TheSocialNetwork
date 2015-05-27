@@ -17,6 +17,7 @@ app.controller('authenticationController', function ($scope, $rootScope, $locati
             notyService.showInfo("Successful Login!");
             authenticationService.setCredentials(serverData);
             $scope.isLoggedIn = authenticationService.isLoggedIn();
+            $rootScope.$broadcast('login');
             clearData();
             $location.path('/');
         },
@@ -31,6 +32,7 @@ app.controller('authenticationController', function ($scope, $rootScope, $locati
             notyService.showInfo("Successful Registeration!");
             authenticationService.setCredentials(serverData);
             $scope.isLoggedIn = authenticationService.isLoggedIn();
+            $rootScope.$broadcast('login');
             clearData();
             $location.path('/');
         },
@@ -44,6 +46,7 @@ app.controller('authenticationController', function ($scope, $rootScope, $locati
             .then(function () {
                 authenticationService.clearCredentials();
                 $scope.isLoggedIn = authenticationService.isLoggedIn();
+                $rootScope.$broadcast('logout');
                 notyService.showInfo("Successful Logout!");
                 $location.path('/welcome');
             }, function (serverError) {
