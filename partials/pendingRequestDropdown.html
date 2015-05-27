@@ -1,4 +1,4 @@
-﻿<div ng-show="pendingRequestsDropdownShow" class="list-content drop-down-search" style="top:{{pendingRequestsFormCoordinates.top}}px; left: {{pendingRequestsFormCoordinates.left}}px;">
+﻿<div ng-show="pendingRequestsDropdownShow" class="list-content drop-down-pending-requests" >
     <ul class="list-group">
         <li href="#" ng-repeat="request in pendingRequests" class="list-group-item text-left">
             <a href="#/{{user.username}}">
@@ -9,8 +9,8 @@
                     {{request.user.name}}
                 </a>
             </label>
-            <button class="bnt btn-success btn-sm pull-right my-margin-left-5">Accept</button>
             <button class="bnt btn-danger btn-sm pull-right my-margin-left-5">Reject</button>
+            <button class="bnt btn-success btn-sm pull-right my-margin-left-5">Accept</button>
             <div class="break"></div>
         </li>
     </ul>

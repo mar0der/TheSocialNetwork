@@ -64,7 +64,8 @@ app.controller('navigationController', function ($scope, $location, $timeout, $i
     $scope.showPendingRequestsDetails = function showPendingRequestsDetails() {
         $scope.pendingRequestsDropdownShow = true;
         $scope.pendingRequestsFormCoordinates = getElementCoordinates('pending-requests-icon', + 52);
-        
+        console.log($scope.pendingRequestsFormCoordinates);
+
     }
 
     $scope.hidePendingRequestsDetails = function hidePendingRequestsDetails() {

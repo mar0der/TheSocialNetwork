@@ -15,7 +15,13 @@
                 <li ng-show="!isLoggedIn"><a href="#/login">Login</a></li>
                 <li ng-show="!isLoggedIn"><a href="#/register">Register</a></li>
                 <li ng-show="isLoggedIn"><a href="#/"><span class="icon-home-2"></span></a></li>
-                <li ng-show="isLoggedIn" id="pending-requests-icon" ng-mouseover="showPendingRequestsDetails()"><a href="#/"><span class="icon-torsos-all"></span><span ng-show="showNotification" class="my-custom-badge">{{requestsCount}}</span></a></li>
+                <li ng-show="isLoggedIn" id="pending-requests-icon" ng-mouseover="showPendingRequestsDetails()" ng-mouseleave="hidePendingRequestsDetails()">
+                    <a href="#/">
+                        <span class="icon-torsos-all"></span>
+                        <span ng-show="showNotification" class="my-custom-badge">{{requestsCount}}</span>
+                    </a>
+                    <div ng-include="'partials/pendingRequestDropdown.html'" style="top:{{pendingRequestsFormCoordinates.top}}px; left: {{pendingRequestsFormCoordinates.left}}px;"></div>
+                </li>
             </ul>
             <ul ng-show="isLoggedIn" class="nav navbar-nav navbar-right">
                 <li><a href="#/" ng-click="logout()">Logout</a></li>
@@ -29,5 +35,4 @@
         </div>
     </div>
     <div ng-include="'partials/searchDropdown.html'"></div>
-    <div ng-include="'partials/pendingRequestDropdown.html'"></div>
 </nav>
