@@ -2,13 +2,72 @@ html {
     overflow-y: scroll;
 }
 
-.pesho {
-	color:red;
+/*navigation*/
+.my-custom-badge {
+    background-color: #ff0000;
+    color: #fff;
+    position: relative;
+    top: -1.5em;
+    left: -0.3em;
+    border-radius: 3px;
+    padding-left: 3px;
+    padding-right: 3px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-size: 80%;
 }
 
-.pesho:hover {
-	color:blue 
+/*avatar sizes*/
+.my-avatar-42 {
+    width: 42px;
+    height: 42px;
 }
-.even_row {
-	background: red;
+
+.my-avatar-64 {
+    width: 64px;
+    height: 64px;
+}
+
+.my-avatar-96 {
+    height: 96px;
+    width: 96px;
+}
+
+/*search form*/
+.drop-down-search {
+    position: absolute;
+    min-width: 275px;
+    z-index: 1;
+}
+
+.drop-down-pending-requests {
+    position: absolute;
+    min-width: 300px;
+    z-index: 1;
+}
+
+/*general stuff*/
+
+.my-inline {
+    display: inline;
+}
+
+.my-margin-bottom-15 {
+    margin-bottom: 10px;
+}
+
+.my-margin-bottom-15 {
+    margin-bottom: 15px;
+}
+
+.my-margin-right-15 {
+    margin-right: 15px;
+}
+
+.my-margin-top-5 {
+    margin-top: 5px;
+}
+
+.my-margin-left-5 {
+    margin-left: 5px;
 }
