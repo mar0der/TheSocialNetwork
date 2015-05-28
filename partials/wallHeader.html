@@ -1,0 +1,16 @@
+﻿<!--<div ng-style="{'background-image':'url(' + (wallOwner.coverImageData ? wallOwner.coverImageData : 'images/default_cover.jpg') +')'}">-->
+<div ng-style="{'background-image':'url(' + (userData.coverImageData ? userData.coverImageData : 'images/default_cover.jpg') +')'}">
+    <div class="media-left my-image-halo">
+        <img ng-src="{{userData.profileImageData}}" err-src="{{defaultImage}}" alt="profile picture" class="img-circle" style="width: 125px; height: 125px" />
+    </div>
+    <div class="media-body">
+        <h2>
+            {{userData.name}}
+        </h2>
+        <div class="status">
+            <button ng-if="wallOwner.status === 'invite'" type="submit" class="btn btn-lg btn-danger" ng-click="sendFriendRequest(wallOwner)">Invite</button>
+            <button ng-if="wallOwner.status === 'friend'" class="btn btn-lg btn-success" disabled>Friend</button>
+            <button ng-if="wallOwner.status === 'pending'" class="btn btn-lg btn-warning" disabled>Pending</button>
+        </div>
+    </div>
+</div>

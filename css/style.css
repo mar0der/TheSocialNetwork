@@ -84,7 +84,7 @@ html {
 .wall-header {
     background-repeat:no-repeat;
     background-size: 100% 100%;
-    height: 180px;
+    height: 135px;
     margin-bottom: 20px;
 }
 
@@ -93,18 +93,18 @@ html {
     padding: 5px;
     background: #E9EAED;
     position: relative;
-    top: 38px;
+    top: 28px;
     left: 18px;
 }
 
 .wall-header h2{
     font-size: 2em;
+    font-weight: bold;
     display: inline-block;
-    color: #000000;
+    color: white;
     position: relative;
-    top: 30px;
-    left: 50px;
-    background: #E9EAED;
+    top: 65px;
+    left: 40px;
     padding: 5px;
 }
 
