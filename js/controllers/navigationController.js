@@ -119,4 +119,6 @@ app.controller('navigationController', function ($scope, $location, $timeout, $i
         $scope.pendingRequests = [];
     });
 
+    refreshPendingRequests();
+
 });
