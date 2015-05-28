@@ -7,10 +7,9 @@ app.factory('notyService',
                 noty({
                     text: msg,
                     type: 'success',
-                    layout: 'topCenter',
+                    layout: 'bottomRight',
                     timeout: 1000
-                }
-                );
+                });
             },
             showError: function (msg, serverError) {
                 // Collect errors to display from the server response
@@ -37,8 +36,7 @@ app.factory('notyService',
                     type: 'error',
                     layout: 'topCenter',
                     timeout: 5000
-                }
-                );
+                });
             }
         }
     }
