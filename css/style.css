@@ -79,3 +79,38 @@ html {
 #passwordChangeForm .ng-dirty.ng-invalid, #loginForm .ng-dirty.ng-invalid, #registerForm .ng-dirty.ng-invalid {
     border:1px solid #ff0000;
 }
+
+/*wall*/
+.wall-header {
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
+    height: 180px;
+    margin-bottom: 20px;
+}
+
+.my-image-halo{
+    border-radius: 100%;
+    padding: 5px;
+    background: #E9EAED;
+    position: relative;
+    top: 38px;
+    left: 18px;
+}
+
+.wall-header h2{
+    font-size: 2em;
+    display: inline-block;
+    color: #000000;
+    position: relative;
+    top: 30px;
+    left: 50px;
+    background: #E9EAED;
+    padding: 5px;
+}
+
+.wall-header .status {
+    display: block;
+    top: 25px;
+    position: relative;
+    left: 50px;
+}

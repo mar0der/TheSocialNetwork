@@ -1,7 +1,7 @@
 ﻿app.directive('commentView', function () {
     return {
         restrict: 'A',
-        teplace: true,
+        replace: true,
         templateUrl: 'partials/commentView.html'
     }
 })

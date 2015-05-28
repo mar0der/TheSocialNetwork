@@ -1,5 +1,6 @@
-﻿<div class="col-lg-{{config.leftSidebarCols}}" ng-include="'partials/profileSidebar.html'" ng-if="isLoggedIn"></div>
-<div class="col-lg-{{config.contentCols}}">
+﻿<div class="wall-header col-lg-24" ng-include="'partials/wallHeader.html'" ng-init="getDataAboutCurrentUser()"></div>
+
+<div class="col-lg-{{config.contentCols}} col-lg-offset-{{config.leftSidebarCols}}">
     <div class="well" ng-show="isMyWall || isMyFriend">
         <form ng-submit="postOnWall();" name="addPostForm">
             <div class="form-group">
@@ -12,7 +13,7 @@
         <div class="media">
             <div class="media-left">
                 <a href="#">
-                    <img class="media-object img-circle my-avatar-64" ng-src="{{post.author.profileImageData}}" alt="{{post.author.name}}'s profile picture" >
+                    <img class="media-object img-circle my-avatar-64" ng-src="{{post.author.profileImageData}}" alt="{{post.author.name}}'s profile picture">
                 </a>
             </div>
             <div class="media-body media-left">
@@ -35,12 +36,12 @@
             </div>
         </div>
 
-        <hr />
+        <hr/>
 
         <div ng-include="'partials/commentView.html'" ng-repeat="comment in post.comments"></div>
         <div class="media-left">
             <a href="#" class="my-inline">
-                <img class="media-object img-circle my-avatar-42" ng-src="{{post.author.profileImageData}}" alt="{{post.author.name}}'s profile picture" >
+                <img class="media-object img-circle my-avatar-42" ng-src="{{post.author.profileImageData}}" alt="{{post.author.name}}'s profile picture">
             </a>
         </div>
 

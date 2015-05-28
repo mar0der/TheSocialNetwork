@@ -8,7 +8,6 @@ app.factory('profileService', function ($http, $q, authenticationService, config
     //GET api/me	
     service.getDataAboutMe = function getDataAboutMe() {
         var deferred = $q.defer();
-        var headers = { headers: authenticationService.getHeaders() };
         $http.get(serviceUrl, authenticationService.getHeaders())
             .success(function (responseData) {
                 deferred.resolve(responseData);

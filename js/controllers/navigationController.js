@@ -16,14 +16,13 @@ app.controller('navigationController', function ($scope, $location, $timeout, $i
                     var count = responseData.length;
                     if (count) {
                         $scope.pendingRequests = responseData;
-                        console.log($scope.pendingRequests);
                         $scope.showNotification = true;
                         $scope.requestsCount = count;
                     } else {
                         $scope.showNotification = false;
                     }
                 }, function (serverError) {
-                    notyService.showError('Can`t pull your friends requests' + serverError);
+                    notyService.showError('Can`t pull your friends requests', serverError);
                 });
         }
     }
@@ -44,27 +43,24 @@ app.controller('navigationController', function ($scope, $location, $timeout, $i
     }
 
     $scope.acceptFriendRequest = function acceptFriendRequest(requestId) {
-        console.log(requestId);
-
         profileService.resolveFriendsRequest(requestId, 'approved')
             .then(function (responseData) {
                 $scope.pendingRequests = [];
                 refreshPendingRequests();
                 notyService.showInfo(responseData.message);
             }, function (serverError) {
-                notyService.showError('An error occured while accepting this friend requet. ' + serverError);
+                notyService.showError('An error occured while accepting this friend requet.', serverError);
             });
     }
 
     $scope.rejectFriendRequest = function rejectFriendRequest(requestId) {
-        console.log(requestId);
         profileService.resolveFriendsRequest(requestId, 'rejected')
             .then(function (responseData) {
                 $scope.pendingRequests = [];
                 refreshPendingRequests();
                 notyService.showInfo(responseData.message);
             }, function (serverError) {
-                notyService.showError('An error occured while rejecting this friend requet. ' + serverError);
+                notyService.showError('An error occured while rejecting this friend requet.', serverError);
             });
     }
 
@@ -89,7 +85,7 @@ app.controller('navigationController', function ($scope, $location, $timeout, $i
                     }
                 }, function (serverError) {
                     $scope.showSearchResults = false;
-                    notyService.showError('An error occured while searching...' + serverError);
+                    notyService.showError('An error occured while searching...', serverError);
                 });
         } else {
             $scope.showSearchResults = false;

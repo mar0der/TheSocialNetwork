@@ -34,6 +34,16 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
         console.log($scope.comment.commentContent);
     }
 
+    $scope.getDataAboutCurrentUser = function getDataAboutCurrentUser() {
+        usersService.getUserData(username)
+                   .then(function (responseData) {
+                       $scope.userData = responseData;
+                       console.log(responseData);
+                   }, function (errorData) {
+
+                   });
+    }
+
     //the script starts here
     if (username === authenticationService.getUsername()) {
         $scope.isMyWall = true;
