@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-app.controller('wallController', function ($scope, $location, $routeParams, configService, usersService, authenticationService, postsService, notyService) {
+app.controller('wallController', function ($scope, $location, $routeParams, configService, usersService, authenticationService, postsService, profileService, notyService) {
     $scope.config = configService;
     $scope.userIsFriend = false;
     $scope.isMyWall = true;
@@ -38,23 +38,38 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
         usersService.getUserData(username)
                    .then(function (responseData) {
                        $scope.userData = responseData;
-                       console.log(responseData);
-                   }, function (errorData) {
+                       if (username === authenticationService.getUsername()) {
+                           $scope.userData.hasPendingRequest = false;
+                       }
+                   }, function (serverError) {
+                       notyService.showError('Unable to pull the information for username ' + username, serverError);
+                   });
+    }
 
+    $scope.sendFriendRequest = function sendFriendRequest(username) {
+        profileService.sendFriendsRequest(username)
+                   .then(function (responseData) {
+                       notyService.showInfo(responseData.message);
+                       $scope.userData.hasPendingRequest = true;
+                   }, function (serverError) {
+                       notyService.showError('Unable to send friends request to ' + username, serverError);
                    });
     }
 
     //the script starts here
     if (username === authenticationService.getUsername()) {
-        $scope.isMyWall = true;
         $scope.showWall(username);
+        $scope.isMyWall = true;
+        $scope.isMyFriend = false;
     } else {
         usersService.getUserPreviewData(username)
             .then(function (responseData) {
                 if (responseData.isFriend) {
                     $scope.isMyFriend = true;
+                    $scope.isMyWall = false;
                 } else {
                     $scope.isMyFriend = false;
+                    $scope.isMyWall = false;
                 }
                 $scope.showWall(username);
             }, function () {

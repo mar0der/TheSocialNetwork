@@ -108,9 +108,7 @@ html {
     padding: 5px;
 }
 
-.wall-header .status {
-    display: block;
-    top: 25px;
-    position: relative;
-    left: 50px;
+.my-friend-status {
+    margin-right: 5px;
+    margin-top: 107px;
 }
