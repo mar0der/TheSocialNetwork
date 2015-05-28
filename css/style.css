@@ -73,10 +73,10 @@ html {
 }
 
 /* form validations*/
-#passwordChangeForm .ng-dirty.ng-valid, #loginForm .ng-dirty.ng-valid, #registerForm .ng-dirty.ng-valid {
+#changePasswordForm .ng-dirty.ng-valid, #loginForm .ng-dirty.ng-valid, #registerForm .ng-dirty.ng-valid {
     border:1px solid #00ff00;
 }
-#passwordChangeForm .ng-dirty.ng-invalid, #loginForm .ng-dirty.ng-invalid, #registerForm .ng-dirty.ng-invalid {
+#changePasswordForm .ng-dirty.ng-invalid, #loginForm .ng-dirty.ng-invalid, #registerForm .ng-dirty.ng-invalid {
     border:1px solid #ff0000;
 }
 

@@ -24,9 +24,13 @@ app.config(function ($routeProvider) {
             templateUrl: 'partials/error.html',
             controller: 'errorController'
         })
-        .when('/profile', {
+        .when('/profile/edit', {
             templateUrl: 'partials/profileEdit.html',
-            controller: 'profileEditController'
+            controller: 'profileController'
+        })
+        .when('/profile/edit/password', {
+            templateUrl: 'partials/profilePasswordEdit.html',
+            controller: 'profileController'
         })
         .when('/:username', {
             templateUrl: 'partials/wall.html',

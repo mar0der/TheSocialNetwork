@@ -39,9 +39,8 @@ app.factory('profileService', function ($http, $q, authenticationService, config
     }
 
     //PUT api/me/ChangePassword	
-    service.changeProfilePassword = function changeProfilePassword(oldPassword, newPassword, confirmPassword) {
+    service.changeProfilePassword = function changeProfilePassword(data) {
         var deferred = $q.defer();
-        var data = { oldPassword: oldPassword, newPassword: newPassword, confirmPassword: confirmPassword };
         $http.put(serviceUrl + 'changepassword/', data, authenticationService.getHeaders())
             .success(function (responseData) {
                 deferred.resolve(responseData);
