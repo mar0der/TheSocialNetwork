@@ -112,3 +112,12 @@ html {
     margin-right: 5px;
     margin-top: 107px;
 }
+
+/*likes*/
+.like-button {
+     cursor: pointer;
+ }
+
+.unlike-button {
+    cursor: pointer;
+}

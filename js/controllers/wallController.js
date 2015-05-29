@@ -13,6 +13,8 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
         usersService.getUsersWallByPages(username, '', 10)
             .then(function (responseData) {
                 $scope.wallData = responseData;
+                console.log(responseData);
+
             }, function (serverError) {
                 notyService.showError('Unable to load ' + username + 'wall', serverError);
             });
@@ -54,6 +56,14 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
                    }, function (serverError) {
                        notyService.showError('Unable to send friends request to ' + username, serverError);
                    });
+    }
+
+    //like/unlike posts
+    $scope.likePost = function likePost(post) {
+        console.log(post);
+    }
+    $scope.unlikePost = function unlikePost(post) {
+        console.log(post);
     }
 
     //the script starts here
