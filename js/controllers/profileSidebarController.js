@@ -4,8 +4,8 @@ app.controller('profileSidebarController', function ($scope, $location, profileS
 
     $scope.getDataAboutMe = function getAboutMe() {
         profileService.getDataAboutMe()
-            .then(function (responseData) {
-                $scope.aboutMe = responseData;
+            .then(function (serverResponse) {
+                $scope.aboutMe = serverResponse.data;
             },
             function (errorData) {
                 notyService.showError("Can`t pull your data!", errorData);

@@ -2,9 +2,10 @@
 
 var app = angular.module('fakeBook', ['ngRoute', 'ngResource', 'ui.bootstrap', 'monospaced.elastic']);// 
 
-app.constant('baseServiceUrl', 'http://softuni-social-network.azurewebsites.net/api/');
+//app.constant('baseServiceUrl', 'http://softuni-social-network.azurewebsites.net/api/');
 
-app.config(function ($routeProvider) {
+app.config(function ($routeProvider, $httpProvider) {
+    $httpProvider.interceptors.push('httpResponseInterceptorService');
 
     $routeProvider
         .when('/register', {

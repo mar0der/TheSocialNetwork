@@ -6,25 +6,25 @@ app.controller('friendsController', function ($scope, $location, $routeParams, c
         var username = $routeParams.username;
         if (username === authenticationService.getUsername() || username === '') {
             profileService.getOwnFriends()
-                .then(function (responseData) {
-                    angular.forEach(responseData, function (friend) {
+                .then(function (serverResponse) {
+                    angular.forEach(serverResponse.data, function (friend) {
                         if (!friend.profileImageData) {
                             friend.profileImageData = 'img/avatar.jpg';
                         }
                     });
-                    $scope.freindsData = responseData;
+                    $scope.freindsData = serverResponse.data;
                 }, function (serverError) {
                     notyService.showError('Cannot pull your friends list. Please check your internet connection or try later.', serverError);
                 });
         } else {
             usersService.getFriendsDetailedFriendList(username)
-                .then(function (responseData) {
-                    angular.forEach(responseData, function (friend) {
+                .then(function (serverResponse) {
+                    angular.forEach(serverResponse.data, function (friend) {
                         if (!friend.profileImageData) {
                             friend.profileImageData = 'img/avatar.jpg';
                         }
                     });
-                    $scope.freindsData = responseData;
+                    $scope.freindsData = serverResponse.data;
                 }, function() {
                     $location.path('404');
                 });

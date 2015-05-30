@@ -7,19 +7,19 @@ app.controller('friendsSidebarController', function ($scope, $routeParams,authen
 
     if ($scope.isMe()) {
         profileService.getOwnFriendsPreview()
-            .then(function (responseData) {
-                $scope.data = responseData;
+            .then(function (serverResponse) {
+                $scope.data = serverResponse.data;
                 $scope.username = authenticationService.getUsername();
                 $scope.showFriends = true;
             });
     } else {
         usersService.getUserPreviewData($scope.username)
-            .then(function (responseData) {
-                if (responseData.isFriend) {
+            .then(function (serverResponse) {
+                if (serverResponse.data.isFriend) {
                     usersService.getFriendsFriendListPreview($scope.username)
-                        .then(function (friendData) {
+                        .then(function (friendsServerResponse) {
                             $scope.showFriends = true;
-                            $scope.data = friendData;
+                            $scope.data = friendsServerResponse.data;
                         });
                 }
             });

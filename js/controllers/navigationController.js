@@ -12,10 +12,10 @@ app.controller('navigationController', function ($scope, $location, $timeout, $i
     function refreshPendingRequests() {
         if (authenticationService.isLoggedIn()) {
             profileService.getFriendsRequests()
-                .then(function (responseData) {
-                    var count = responseData.length;
+                .then(function (serverResponse) {
+                    var count = serverResponse.data.length;
                     if (count) {
-                        $scope.pendingRequests = responseData;
+                        $scope.pendingRequests = serverResponse.data;
                         $scope.showNotification = true;
                         $scope.requestsCount = count;
                     } else {
@@ -44,10 +44,10 @@ app.controller('navigationController', function ($scope, $location, $timeout, $i
 
     $scope.acceptFriendRequest = function acceptFriendRequest(requestId) {
         profileService.resolveFriendsRequest(requestId, 'approved')
-            .then(function (responseData) {
+            .then(function (serverResponse) {
                 $scope.pendingRequests = [];
                 refreshPendingRequests();
-                notyService.showInfo(responseData.message);
+                notyService.showInfo(serverResponse.data.message);
             }, function (serverError) {
                 notyService.showError('An error occured while accepting this friend requet.', serverError);
             });
@@ -55,10 +55,10 @@ app.controller('navigationController', function ($scope, $location, $timeout, $i
 
     $scope.rejectFriendRequest = function rejectFriendRequest(requestId) {
         profileService.resolveFriendsRequest(requestId, 'rejected')
-            .then(function (responseData) {
+            .then(function (serverResponse) {
                 $scope.pendingRequests = [];
                 refreshPendingRequests();
-                notyService.showInfo(responseData.message);
+                notyService.showInfo(serverResponse.data.message);
             }, function (serverError) {
                 notyService.showError('An error occured while rejecting this friend requet.', serverError);
             });
@@ -75,9 +75,9 @@ app.controller('navigationController', function ($scope, $location, $timeout, $i
     $scope.searchByUsername = function searchByUsername() {
         if ($scope.searchPattern !== '') {
             usersService.searchUserByName($scope.searchPattern)
-                .then(function (responseData) {
-                    if (responseData.length) {
-                        $scope.searchResults = responseData;
+                .then(function (serverResponse) {
+                    if (serverResponse.data.length) {
+                        $scope.searchResults = serverResponse.data;
                         $scope.showSearchResults = true;
                         $scope.searchResultFormCoordinates = getElementCoordinates('search-form', +48);
                     } else {

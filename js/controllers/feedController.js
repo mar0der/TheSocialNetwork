@@ -6,8 +6,8 @@ app.controller('feedController', function($scope, $rootScope, $location, $interv
 
     $scope.getMyFeed = function () {
         profileService.getMyFeed('', 10)
-            .then(function (responseData) {
-                $scope.feedData = responseData;
+            .then(function (serverResponse) {
+                $scope.feedData = serverResponse.data;
                 },
                 function (serverError) {
                     notyService.showError("Unable to load your feed", serverError);
