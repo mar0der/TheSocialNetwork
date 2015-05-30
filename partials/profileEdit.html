@@ -1,11 +1,75 @@
-﻿<div class="container">
-    <div class="col-lg-2">
-        <a href="#/profile/edit/password">Change Password</a>
+﻿<div ng-style="{'background-image':'url(' + (aboutMeData.coverImageData ? aboutMeData.coverImageData : 'images/default_cover.jpg') +')'}" ng-init="getFullDataAboutMe()">
+    <div class="media-left my-image-halo">
+        <img ng-src="{{aboutMeData.profileImageData}}" err-src="{{defaultImage}}" alt="profile picture" class="img-circle" style="width: 125px; height: 125px"/>
     </div>
-    <div class="col-lg-10">
-        <div class="container">
-            profile edit
-        </div>
+    <div class="media-body">
+        <h2>
+            {{aboutMeData.name}}
+        </h2>
     </div>
+</div>
+<div class="well bs-component col-lg-14 col-lg-offset-5 my-margin-top-5">
+    <form class="form-horizontal" name="editProfileForm" id="editProfileForm" ng-submit="updateProfile()">
+        <fieldset>
+            <legend>Edit Your Profile</legend>
 
+            <div class="form-group">
+                <label for="inputName" class="col-lg-4 control-label">Name</label>
+                <div class="col-lg-20">
+                    <input type="text" class="form-control" id="inputName" ng-model="aboutMeData.name" placeholder="Name" required="required">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="input-email" class="col-lg-4 control-label">Email</label>
+                <div class="col-lg-20">
+                    <input type="email" class="form-control" id="input-email" ng-model="aboutMeData.email" placeholder="Email" required="required">
+                </div>
+            </div>
+            <div for="gender-group " class="form-group">
+                <label class="col-lg-4 control-label">Gender</label>
+                <div id="gender-group" class="col-lg-20">
+                    <label for="inputGender1" class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inputGender1" value="1" ng-model="aboutMeData.gender" required/> Male
+                    </label>
+                    <label for="inputGender2" class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inputGender2" value="2" ng-model="aboutMeData.gender"/> Female
+                    </label>
+                    <label for="inputGender3" class="radio-inline">
+                        <input type="radio" name="inlineRadioOptions" id="inputGender3" value="0" ng-model="aboutMeData.gender"/> Other
+                    </label>
+                </div>
+            </div>
+
+
+
+
+            <div class="form-group">
+                <label for="input-profile-image" class="col-lg-4 control-label">Profile Photo</label>
+                <div class="col-lg-20">
+                    <button type="button" ng-click="triggerInputFileField('#input-profile-image')" class="btn btn-md btn-file" >Upload Profile Photo</button>
+                    <span>Max Image Size: 128kB</span>
+                    <input type="file" ng-hide="true" custom-on-change-directive="processImage" class="form-control" id="input-profile-image">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="input-profile-image" class="col-lg-4 control-label">Cover Photo</label>
+                <div class="col-lg-20">
+                    <button type="button" ng-click="triggerInputFileField('#input-cover-image')" class=" btn btn-md" id="upload-cover-image-button">Upload Cover Photo</button>
+                    <span>Max Image Size: 1024kB</span>
+                    <input type="file" ng-hide="true" custom-on-change-directive="processImage" class="form-control" id="input-cover-image" >
+                </div>
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="col-lg-20 col-lg-offset-4">
+                    <a href="/#/" class="btn btn-default">Cancel</a>
+                    <button type="submit" class="btn btn-primary" ng-disabled="editProfileForm.$invalid">Save Changes </button>
+                    <a href="#/profile/edit/password" class="btn btn-primary pull-right">Change Password</a>
+                </div>
+            </div>
+        </fieldset>
+    </form>
 </div>

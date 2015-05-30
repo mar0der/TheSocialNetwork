@@ -19,15 +19,8 @@ app.factory('profileService', function ($http, $q, authenticationService, config
     }
 
     //PUT api/me	
-    service.editProfile = function editProfile(name, email, profileImageData, coverImageData, gender) {
+    service.editProfile = function editProfile(data) {
         var deferred = $q.defer();
-        var data = {
-            name: name,
-            email: email,
-            profileImageData: profileImageData,
-            coverImageData: coverImageData,
-            gender: gender
-        };
         $http.put(serviceUrl, data, authenticationService.getHeaders())
             .success(function (responseData) {
                 deferred.resolve(responseData);
