@@ -1,10 +1,10 @@
 ﻿<!--<div ng-style="{'background-image':'url(' + (wallOwner.coverImageData ? wallOwner.coverImageData : 'images/default_cover.jpg') +')'}">-->
 <div ng-style="{'background-image':'url(' + (userData.coverImageData ? userData.coverImageData : 'images/default_cover.jpg') +')'}">
     <div class="media-left my-image-halo">
-        <img ng-src="{{userData.profileImageData}}" err-src="{{defaultImage}}" alt="profile picture" class="img-circle" style="width: 125px; height: 125px" />
+        <img ng-src="{{userData.profileImageData}}" err-src="{{defaultImage}}" alt="profile picture" class="img-circle my-wall-avatar"  />
     </div>
     <div class="media-body">
-        <h2>
+        <h2 class="my-wall-name">
             {{userData.name}}
         </h2>
 

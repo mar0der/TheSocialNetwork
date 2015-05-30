@@ -97,7 +97,11 @@ html {
     left: 18px;
 }
 
-.wall-header h2{
+.my-wall-avatar {
+    height: 125px;
+    width: 125px;
+}
+.my-wall-name{
     font-size: 2em;
     font-weight: bold;
     display: inline-block;
