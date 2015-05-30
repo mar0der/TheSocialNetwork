@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-app.controller('navigationController', function ($scope, $location, $timeout, $interval, profileService, usersService, authenticationService, notyService) {
+app.controller('navigationController', function ($scope, $location, $timeout, $route, $interval, profileService, usersService, authenticationService, notyService) {
 
     $scope.showNotification = false;
     $scope.showSearchResults = false;
@@ -109,6 +109,7 @@ app.controller('navigationController', function ($scope, $location, $timeout, $i
         $scope.pendingRequestsDropdownShow = false;
         $scope.pendingRequests = [];
         refreshPendingRequests();
+        $scope.isLoggedIn = true;
     });
 
     $scope.$on('logout', function () {
@@ -117,6 +118,7 @@ app.controller('navigationController', function ($scope, $location, $timeout, $i
         $scope.searchPattern = '';
         $scope.pendingRequestsDropdownShow = false;
         $scope.pendingRequests = [];
+        $scope.isLoggedIn = false;
     });
 
     refreshPendingRequests();
