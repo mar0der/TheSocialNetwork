@@ -11,7 +11,7 @@ app.controller('profileSidebarController', function ($scope, $location, profileS
                 notyService.showError("Can`t pull your data!", errorData);
             });
     }
-    if ($scope.isLoggedIn) {
+    if ($scope.isLoggedIn()) {
         $scope.getDataAboutMe();
     }
 });

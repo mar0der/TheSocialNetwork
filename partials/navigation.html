@@ -12,10 +12,10 @@
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li ng-show="!isLoggedIn"><a href="#/login">Login</a></li>
-                <li ng-show="!isLoggedIn"><a href="#/register">Register</a></li>
-                <li ng-show="isLoggedIn"><a href="#/"><span class="icon-home-2"></span></a></li>
-                <li ng-show="isLoggedIn" id="pending-requests-icon" ng-mouseover="showPendingRequestsDetails()" ng-mouseleave="hidePendingRequestsDetails()">
+                <li ng-show="!isLoggedIn()"><a href="#/login">Login</a></li>
+                <li ng-show="!isLoggedIn()"><a href="#/register">Register</a></li>
+                <li ng-show="isLoggedIn()"><a href="#/"><span class="icon-home-2"></span></a></li>
+                <li ng-show="isLoggedIn()" id="pending-requests-icon" ng-mouseover="showPendingRequestsDetails()" ng-mouseleave="hidePendingRequestsDetails()">
                     <a href="#/">
                         <span class="icon-torsos-all"></span>
                         <span ng-show="showNotification" class="my-custom-badge">{{requestsCount}}</span>
@@ -23,10 +23,10 @@
                     <div ng-include="'partials/pendingRequestDropdown.html'" style="top:{{pendingRequestsFormCoordinates.top}}px; left: {{pendingRequestsFormCoordinates.left}}px;"></div>
                 </li>
             </ul>
-            <ul ng-show="isLoggedIn" class="nav navbar-nav navbar-right">
+            <ul ng-show="isLoggedIn()" class="nav navbar-nav navbar-right">
                 <li><a href="#/" ng-click="logout()">Logout</a></li>
             </ul>
-            <form ng-show="isLoggedIn" class="navbar-form navbar-right" role="search">
+            <form ng-show="isLoggedIn()" class="navbar-form navbar-right" role="search">
                 <div class="form-group">
                     <input ng-change="searchByUsername();" ng-model="searchPattern" ng-blur="hideSearchForm();" type="text" class="form-control" placeholder="Find Friends" id="search-form">
                 </div>

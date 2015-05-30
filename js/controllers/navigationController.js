@@ -109,7 +109,7 @@ app.controller('navigationController', function ($scope, $location, $timeout, $r
         $scope.pendingRequestsDropdownShow = false;
         $scope.pendingRequests = [];
         refreshPendingRequests();
-        $scope.isLoggedIn = true;
+        //$scope.isLoggedIn = true;
     });
 
     $scope.$on('logout', function () {
@@ -118,7 +118,7 @@ app.controller('navigationController', function ($scope, $location, $timeout, $r
         $scope.searchPattern = '';
         $scope.pendingRequestsDropdownShow = false;
         $scope.pendingRequests = [];
-        $scope.isLoggedIn = false;
+        //$scope.isLoggedIn = false;
     });
 
     refreshPendingRequests();

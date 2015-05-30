@@ -10,7 +10,7 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
     var username = $routeParams.username;
 
     $scope.test = function test() {
-        if ($scope.isLogged()) {
+        if ($scope.isLoggedIn()) {
             alert('vliza');
 
         } else {
@@ -21,12 +21,13 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
 
     $scope.showWall = function showWall(username) {
         alert('show wall vav wall controller');
-        $scope.test();
+ 
         usersService.getUsersWallByPages(username, '', 10)
             .then(function (serverResponse) {
                 $scope.wallData = serverResponse.data;
             }, function (serverError, status) {
-               notyService.showError('Unable to load ' + username + 'wall', serverError);
+                notyService.showError('Unable to load ' + username + 'wall', serverError);
+                $scope.test();
             });
     }
 
