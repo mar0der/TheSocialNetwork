@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-app.controller('navigationController', function ($scope, $location, $timeout, $route, $interval, profileService, usersService, authenticationService, notyService) {
+app.controller('navigationController', function ($scope, $location, $timeout, $route, $interval, profileService, usersService, notyService) {
 
     $scope.showNotification = false;
     $scope.showSearchResults = false;
@@ -10,7 +10,7 @@ app.controller('navigationController', function ($scope, $location, $timeout, $r
 
     //uncomment when ready for testing
     function refreshPendingRequests() {
-        if (authenticationService.isLoggedIn()) {
+        if ($scope.isLoggedIn()) {
             profileService.getFriendsRequests()
                 .then(function (serverResponse) {
                     var count = serverResponse.data.length;
@@ -43,7 +43,8 @@ app.controller('navigationController', function ($scope, $location, $timeout, $r
     }
 
     $scope.acceptFriendRequest = function acceptFriendRequest(requestId) {
-        profileService.resolveFriendsRequest(requestId, 'approved')
+        if ($scope.isLoggedIn()) {
+            profileService.resolveFriendsRequest(requestId, 'approved')
             .then(function (serverResponse) {
                 $scope.pendingRequests = [];
                 refreshPendingRequests();
@@ -51,10 +52,12 @@ app.controller('navigationController', function ($scope, $location, $timeout, $r
             }, function (serverError) {
                 notyService.showError('An error occured while accepting this friend requet.', serverError);
             });
+        }
     }
 
     $scope.rejectFriendRequest = function rejectFriendRequest(requestId) {
-        profileService.resolveFriendsRequest(requestId, 'rejected')
+        if ($scope.isLoggedIn()) {
+            profileService.resolveFriendsRequest(requestId, 'rejected')
             .then(function (serverResponse) {
                 $scope.pendingRequests = [];
                 refreshPendingRequests();
@@ -62,6 +65,7 @@ app.controller('navigationController', function ($scope, $location, $timeout, $r
             }, function (serverError) {
                 notyService.showError('An error occured while rejecting this friend requet.', serverError);
             });
+        }
     }
 
     var requestsInterval = $interval(function () {
@@ -73,23 +77,25 @@ app.controller('navigationController', function ($scope, $location, $timeout, $r
     });
 
     $scope.searchByUsername = function searchByUsername() {
-        if ($scope.searchPattern !== '') {
-            usersService.searchUserByName($scope.searchPattern)
-                .then(function (serverResponse) {
-                    if (serverResponse.data.length) {
-                        $scope.searchResults = serverResponse.data;
-                        $scope.showSearchResults = true;
-                        $scope.searchResultFormCoordinates = getElementCoordinates('search-form', +48);
-                    } else {
+        if ($scope.isLoggedIn()) {
+            if ($scope.searchPattern !== '') {
+                usersService.searchUserByName($scope.searchPattern)
+                    .then(function (serverResponse) {
+                        if (serverResponse.data.length) {
+                            $scope.searchResults = serverResponse.data;
+                            $scope.showSearchResults = true;
+                            $scope.searchResultFormCoordinates = getElementCoordinates('search-form', +48);
+                        } else {
+                            $scope.showSearchResults = false;
+                        }
+                    }, function (serverError) {
                         $scope.showSearchResults = false;
-                    }
-                }, function (serverError) {
-                    $scope.showSearchResults = false;
-                    notyService.showError('An error occured while searching...', serverError);
-                });
-        } else {
-            $scope.showSearchResults = false;
-            $scope.searchResults = [];
+                        notyService.showError('An error occured while searching...', serverError);
+                    });
+            } else {
+                $scope.showSearchResults = false;
+                $scope.searchResults = [];
+            }
         }
     }
 
@@ -109,7 +115,6 @@ app.controller('navigationController', function ($scope, $location, $timeout, $r
         $scope.pendingRequestsDropdownShow = false;
         $scope.pendingRequests = [];
         refreshPendingRequests();
-        //$scope.isLoggedIn = true;
     });
 
     $scope.$on('logout', function () {
@@ -118,7 +123,6 @@ app.controller('navigationController', function ($scope, $location, $timeout, $r
         $scope.searchPattern = '';
         $scope.pendingRequestsDropdownShow = false;
         $scope.pendingRequests = [];
-        //$scope.isLoggedIn = false;
     });
 
     refreshPendingRequests();

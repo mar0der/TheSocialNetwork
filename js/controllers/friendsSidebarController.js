@@ -1,19 +1,23 @@
 ﻿'use strict';
 
-app.controller('friendsSidebarController', function ($scope, $routeParams,authenticationService, profileService, usersService) {
+app.controller('friendsSidebarController', function ($scope, $routeParams, authenticationService, profileService, usersService) {
     $scope.showFriends = false;
 
     $scope.username = $routeParams.username;
 
     if ($scope.isMe()) {
-        profileService.getOwnFriendsPreview()
+        if ($scope.isLoggedIn()) {
+            profileService.getOwnFriendsPreview()
             .then(function (serverResponse) {
                 $scope.data = serverResponse.data;
                 $scope.username = authenticationService.getUsername();
                 $scope.showFriends = true;
             });
+        }
+
     } else {
-        usersService.getUserPreviewData($scope.username)
+        if ($scope.isLoggedIn()) {
+            usersService.getUserPreviewData($scope.username)
             .then(function (serverResponse) {
                 if (serverResponse.data.isFriend) {
                     usersService.getFriendsFriendListPreview($scope.username)
@@ -23,5 +27,6 @@ app.controller('friendsSidebarController', function ($scope, $routeParams,authen
                         });
                 }
             });
+        }
     }
 });

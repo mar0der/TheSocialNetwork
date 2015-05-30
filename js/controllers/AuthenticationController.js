@@ -9,14 +9,11 @@ app.controller('authenticationController', function ($scope, $rootScope, $locati
         $scope.passwordData = "";
     };
 
-    //$scope.isLoggedIn = authenticationService.isLoggedIn();
-
     $scope.login = function login(loginData) {
         usersService.login(loginData)
         .then(function (serverData) {
             notyService.showInfo("Successful Login!");
             authenticationService.setCredentials(serverData.data);
-            //$scope.isLoggedIn = authenticationService.isLoggedIn();
             $rootScope.$broadcast('login');
             clearData();
             $location.path('/');
@@ -31,7 +28,6 @@ app.controller('authenticationController', function ($scope, $rootScope, $locati
         .then(function (serverData) {
             notyService.showInfo("Successful Registeration!");
             authenticationService.setCredentials(serverData.data);
-            //$scope.isLoggedIn = authenticationService.isLoggedIn();
             $rootScope.$broadcast('login');
             clearData();
             $location.path('/');
@@ -45,13 +41,11 @@ app.controller('authenticationController', function ($scope, $rootScope, $locati
         usersService.logout()
             .then(function () {
                 authenticationService.clearCredentials();
-                //$scope.isLoggedIn = authenticationService.isLoggedIn();
                 $rootScope.$broadcast('logout');
                 notyService.showInfo("Successful Logout!");
                 $location.path('/welcome');
             }, function (serverError) {
                 authenticationService.clearCredentials();
-                //$scope.isLoggedIn = authenticationService.isLoggedIn();
                 notyService.showError("Unsuccessful Logout!", serverError);
                 $location.path('/welcome');
             });

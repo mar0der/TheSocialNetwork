@@ -14,7 +14,6 @@ app.factory('notyService',
             showError: function (customMessage, serverError) {
                 customMessage = customMessage + "<br>" + serverError.statusMessage;
                 if (serverError.status !== 401) {
-                    alert(serverError.status);
                     noty({
                         text: customMessage,
                         type: 'error',

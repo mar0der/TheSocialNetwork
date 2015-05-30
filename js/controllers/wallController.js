@@ -9,37 +9,28 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
 
     var username = $routeParams.username;
 
-    $scope.test = function test() {
-        if ($scope.isLoggedIn()) {
-            alert('vliza');
-
-        } else {
-            alert('youpee');
-
-        }
-    }
-
     $scope.showWall = function showWall(username) {
-        alert('show wall vav wall controller');
- 
-        usersService.getUsersWallByPages(username, '', 10)
+        if ($scope.isLoggedIn()) {
+            usersService.getUsersWallByPages(username, '', 10)
             .then(function (serverResponse) {
                 $scope.wallData = serverResponse.data;
             }, function (serverError, status) {
                 notyService.showError('Unable to load ' + username + 'wall', serverError);
-                $scope.test();
             });
+        }
     }
 
     $scope.postOnWall = function postOnWall() {
-        if ($scope.isMyWall || $scope.isMyFriend) {
-            postsService.addPost($scope.postContent, username)
-                .then(function (serverResponse) {
-                    $scope.wallData.unshift(serverResponse.data);
-                    $scope.postContent = '';
-                }, function (serverError) {
-                    notyService.showError('Unable to post on ' + username + '`s wall', serverError);
-                });
+        if ($scope.isLoggedIn()) {
+            if ($scope.isMyWall || $scope.isMyFriend) {
+                postsService.addPost($scope.postContent, username)
+                    .then(function (serverResponse) {
+                        $scope.wallData.unshift(serverResponse.data);
+                        $scope.postContent = '';
+                    }, function (serverError) {
+                        notyService.showError('Unable to post on ' + username + '`s wall', serverError);
+                    });
+            }
         }
     }
 
@@ -48,25 +39,29 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
     }
 
     $scope.getDataAboutCurrentUser = function getDataAboutCurrentUser() {
-        usersService.getUserData(username)
-                   .then(function (serverResponse) {
-                       $scope.userData = serverResponse.data;
-                       if (username === authenticationService.getUsername()) {
-                           $scope.userData.hasPendingRequest = false;
-                       }
-                   }, function (serverError) {
-                       notyService.showError('Unable to pull the information for username ' + username, serverError);
-                   });
+        if ($scope.isLoggedIn()) {
+            usersService.getUserData(username)
+            .then(function (serverResponse) {
+                $scope.userData = serverResponse.data;
+                if (username === authenticationService.getUsername()) {
+                    $scope.userData.hasPendingRequest = false;
+                }
+            }, function (serverError) {
+                notyService.showError('Unable to pull the information for username ' + username, serverError);
+            });
+        }
     }
 
     $scope.sendFriendRequest = function sendFriendRequest(username) {
-        profileService.sendFriendsRequest(username)
-                   .then(function (serverResponse) {
-                       notyService.showInfo(serverResponse.data.message);
-                       $scope.userData.hasPendingRequest = true;
-                   }, function (serverError) {
-                       notyService.showError('Unable to send friends request to ' + username, serverError);
-                   });
+        if ($scope.isLoggedIn()) {
+            profileService.sendFriendsRequest(username)
+            .then(function (serverResponse) {
+                notyService.showInfo(serverResponse.data.message);
+                $scope.userData.hasPendingRequest = true;
+            }, function (serverError) {
+                notyService.showError('Unable to send friends request to ' + username, serverError);
+            });
+        }
     }
 
     //like/unlike posts
@@ -83,7 +78,8 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
         $scope.isMyWall = true;
         $scope.isMyFriend = false;
     } else {
-        usersService.getUserPreviewData(username)
+        if ($scope.isLoggedIn()) {
+            usersService.getUserPreviewData(username)
             .then(function (serverResponse) {
                 if (serverResponse.data.isFriend) {
                     $scope.isMyFriend = true;
@@ -96,5 +92,6 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
             }, function () {
                 $location.path('/404');
             });
+        }
     }
 });

@@ -16,7 +16,7 @@
                 <li ng-show="!isLoggedIn()"><a href="#/register">Register</a></li>
                 <li ng-show="isLoggedIn()"><a href="#/"><span class="icon-home-2"></span></a></li>
                 <li ng-show="isLoggedIn()" id="pending-requests-icon" ng-mouseover="showPendingRequestsDetails()" ng-mouseleave="hidePendingRequestsDetails()">
-                    <a href="#/">
+                    <a href>
                         <span class="icon-torsos-all"></span>
                         <span ng-show="showNotification" class="my-custom-badge">{{requestsCount}}</span>
                     </a>

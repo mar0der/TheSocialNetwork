@@ -48,7 +48,6 @@ app.config(function ($routeProvider, $httpProvider) {
 app.run(function ($rootScope, $location, authenticationService) {
     $rootScope.$on('$locationChangeStart', function (event) {
         if ($location.path().indexOf('login') === -1 && $location.path().indexOf('register') === -1 && !authenticationService.isLoggedIn()) {
-            $rootScope.$broadcast('logout');
             $location.path('/welcome');
         }
         var deniedPaths = ['/login', '/register', '/welcome'];
