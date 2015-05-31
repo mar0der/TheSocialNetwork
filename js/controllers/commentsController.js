@@ -18,4 +18,27 @@ app.controller('commentsController', function ($scope, configService, usSpinnerS
                 });
         }
     }
+
+    $scope.getPostAllComments = function (post) {
+
+        if ($scope.isLoggedIn()) {
+            usSpinnerService.spin('spinner');
+            commentsService.getPostComments(post.id)
+                .then(function (responseData) {
+                    post.comments = responseData.data;
+                    usSpinnerService.stop('spinner');
+                },function (serverError) {
+                    usSpinnerService.stop('spinner');
+                    notyService.showError("Failed to load comments!", serverError);
+                }
+            );
+        }
+    };
+
+
+    $scope.doSomething = function doSomething() {
+
+        alert('doing something');
+
+    };
 });

@@ -65,13 +65,10 @@ app.controller('authenticationController', function ($scope, $rootScope, $locati
 
     $scope.myInfo = function myInfo() {
         if ($scope.isLoggedIn()) {
-            usSpinnerService.spin('spinner');
             profileService.getDataAboutMe()
                 .then(function(serverResponse) {
                     $scope.me = serverResponse.data;
-                    usSpinnerService.stop('spinner');
                 }, function(serverError) {
-                    usSpinnerService.stop('spinner');
                     notyService.showError("Unable to pull your info!", serverError);
                 });
         }
