@@ -1,21 +1,36 @@
 ﻿'use strict';
 
-app.controller('feedController', function ($scope, $rootScope, $location, $interval, configService, profileService, notyService) {
+app.controller('feedController', function ($scope, $rootScope, $location, $interval, configService, profileService, usSpinnerService, notyService) {
 
     $scope.config = configService;
+    var feedStartPostId = '';
+    $scope.feedData = [];
 
     $scope.getMyFeed = function () {
         if ($scope.isLoggedIn()) {
-            profileService.getMyFeed('', 10)
+
+            if ($scope.busy) {
+                return;
+            }
+            $scope.busy = true;
+
+            usSpinnerService.spin('spinner');
+            profileService.getMyFeed(feedStartPostId, 10)
             .then(function (serverResponse) {
-                $scope.feedData = serverResponse.data;
-            },function (serverError) {
-                    notyService.showError("Unable to load your feed", serverError);
-                });
+                $scope.feedData = $scope.feedData.concat(serverResponse.data);
+
+                if ($scope.feedData.length > 0) {
+                    feedStartPostId = $scope.feedData[$scope.feedData.length - 1].id;
+                }
+                $scope.busy = false;
+                usSpinnerService.stop('spinner');
+            }, function (serverError) {
+                notyService.showError("Unable to load your feed", serverError);
+                usSpinnerService.stop('spinner');
+            });
         }
 
     };
-    $scope.getMyFeed();
 
     //uncomment when we are ready for tests
     //function refreshNewsFeed() {

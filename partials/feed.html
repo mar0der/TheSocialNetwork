@@ -1,29 +1,31 @@
 ﻿<div class="col-lg-{{config.leftSidebarCols}}" ng-include="'partials/profileSidebar.html'" ng-if="isLoggedIn"></div>
 <div class="col-lg-{{config.contentCols}}" ng-controller="feedController">
-    <div class="well well-lg" ng-repeat="post in feedData">
-        <div class="media">
-            <div class="media-left">
-                <a href="#">
-                    <img class="media-object img-circle my-avatar-64" ng-src="{{post.author.profileImageData}}" alt="{{post.author.name}}'s profile picture">
-                </a>
-            </div>
-            <div class="media-body media-left">
-                <h4 class="media-heading">
-                    <a ng-href="#/{{post.author.username}}">{{post.author.name}}</a>
-                    <span ng-show="post.wallOwner.username != post.author.username">
-                        <span class="glyphicon glyphicon-arrow-right"></span>
-                        <a ng-href="#/{{post.wallOwner.username}}">{{post.wallOwner.name}}</a>
-                    </span>
-                </h4>
-                <span class="blog-post-meta">{{post.date| date : "dd MMM yyyy  hh:mm a"}}</span>
-                <p>
-                    {{post.postContent}}
-                </p>
-                <ul class="nav nav-pills pull-right" role="tablist">
-                    <li role="presentation" data-ng-show="show"><a ng-href data-ng-click="show = false; post.likesCount = post.likesCount - 1;">unlike<span class="badge">{{post.likesCount}}</span></a></li>
-                    <li role="presentation" data-ng-show="!show"><a ng-href data-ng-click="show = true; post.likesCount = post.likesCount + 1;">like<span class="badge">{{post.likesCount}}</span></a></li>
-                    <li role="presentation"><a href="#">Comments <span class="badge">{{post.totalCommentsCount}}</span></a></li>
-                </ul>
+    <div infinite-scroll='getMyFeed()' infinite-scroll-disabled='busy' nfinite-scroll-distance="0">
+        <div class="well well-lg" ng-repeat="post in feedData">
+            <div class="media">
+                <div class="media-left">
+                    <a href="#">
+                        <img class="media-object img-circle my-avatar-64" ng-src="{{post.author.profileImageData}}" alt="{{post.author.name}}'s profile picture">
+                    </a>
+                </div>
+                <div class="media-body media-left">
+                    <h4 class="media-heading">
+                        <a ng-href="#/{{post.author.username}}">{{post.author.name}}</a>
+                        <span ng-show="post.wallOwner.username != post.author.username">
+                            <span class="glyphicon glyphicon-arrow-right"></span>
+                            <a ng-href="#/{{post.wallOwner.username}}">{{post.wallOwner.name}}</a>
+                        </span>
+                    </h4>
+                    <span class="blog-post-meta">{{post.date| date : "dd MMM yyyy  hh:mm a"}}</span>
+                    <p>
+                        {{post.postContent}}
+                    </p>
+                    <ul class="nav nav-pills pull-right" role="tablist">
+                        <li role="presentation" data-ng-show="show"><a ng-href data-ng-click="show = false; post.likesCount = post.likesCount - 1;">unlike<span class="badge">{{post.likesCount}}</span></a></li>
+                        <li role="presentation" data-ng-show="!show"><a ng-href data-ng-click="show = true; post.likesCount = post.likesCount + 1;">like<span class="badge">{{post.likesCount}}</span></a></li>
+                        <li role="presentation"><a href="#">Comments <span class="badge">{{post.totalCommentsCount}}</span></a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>

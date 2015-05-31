@@ -6,7 +6,7 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
     $scope.isMyWall = true;
     $scope.wallData = [];
     $scope.comment = {};
-    var feedStartPostId = '';
+    var wallStartPostId = '';
 
     var username = $routeParams.username;
 
@@ -16,13 +16,14 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
             if ($scope.busy) {
                 return;
             }
+
             $scope.busy = true;
             usSpinnerService.spin('spinner');
-            usersService.getUsersWallByPages($routeParams['username'], feedStartPostId, 10)
+            usersService.getUsersWallByPages($routeParams['username'], wallStartPostId, 10)
                 .then(function (responseData) {
                     $scope.wallData = $scope.wallData.concat(responseData.data);
                     if ($scope.wallData.length > 0) {
-                        feedStartPostId = $scope.wallData[$scope.wallData.length - 1].id;
+                        wallStartPostId = $scope.wallData[$scope.wallData.length - 1].id;
                     }
                     $scope.busy = false;
                     usSpinnerService.stop('spinner');
