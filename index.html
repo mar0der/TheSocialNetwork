@@ -24,6 +24,7 @@
 <body ng-controller="authenticationController">
     <header ng-include="'partials/navigation.html'"></header>
     <div class="container" ng-view></div>
+    <span us-spinner="{radius:20, width:6, length: 10}" spinner-key="spinner"></span>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="lib/jQuery/jquery-2.1.4.js"></script>
@@ -35,6 +36,9 @@
     <script src="lib/angular/angular.js"></script>
     <script src="lib/angular/angular-route.js"></script>
     <script src="lib/angular/angular-resource.js"></script>
+    <script src="lib/angular/ng-infinite-scroll.js"></script>
+    <script src="lib/spin.js"></script>
+    <script src="lib/angular/angular-spinner.min.js"></script>
     <script src="lib/elastic.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular-filter/0.5.4/angular-filter.min.js"></script>
     <script src="lib/bootstrap/ui-bootstrap-tpls-0.13.0.js"></script>

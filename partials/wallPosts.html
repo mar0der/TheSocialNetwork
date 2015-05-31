@@ -1,0 +1,98 @@
+﻿<div class="well well-lg" ng-repeat="post in wallData">
+    <div class="media">
+        <div class="media-left">
+            <a href="#">
+                <img class="media-object img-circle my-avatar-64" ng-src="{{post.author.profileImageData}}" alt="{{post.author.name}}'s profile picture">
+            </a>
+        </div>
+        <div class="media-body media-left">
+            <h4 class="media-heading">
+                <a ng-href="#/{{post.author.username}}">{{post.author.name}}</a>
+                <span ng-show="post.wallOwner.username != post.author.username">
+                    <span class="glyphicon glyphicon-arrow-right"></span>
+                    <a ng-href="#/{{post.wallOwner.username}}">{{post.wallOwner.name}}</a>
+                </span>
+            </h4>
+            <span class="blog-post-meta">{{post.date| date : "dd MMM yyyy  hh:mm a"}}</span>
+            <p>
+                {{post.postContent}}
+            </p>
+
+            <div class="pull-right">
+                <span data-ng-show="show">
+                    <a href style="text-decoration: none;" data-ng-click="show = false; post.likesCount = post.likesCount + 1;">
+                        <span class="icon-like-filled"></span>
+                        <span class="badge">{{post.totalCommentsCount}}</span>
+                    </a>
+                </span>
+                <span data-ng-show="!show">
+                    <a href style="text-decoration: none;" data-ng-click="show = true; post.likesCount = post.likesCount - 1;">
+                        <span class="icon-like"></span>
+                        <span class="badge">{{post.totalCommentsCount}}</span>
+                    </a>
+                </span>
+                <span>
+                    <a href style="text-decoration: none;">
+                        <span class="icon-comment"></span>
+                        <span class="badge">{{post.totalCommentsCount}}</span>
+                    </a>
+                </span>
+            </div>
+
+
+            <!--<ul class="nav nav-pills pull-right" role="tablist">
+                <li role="presentation" data-ng-show="show">
+                    <a ng-href data-ng-click="show = false; post.likesCount = post.likesCount - 1;">
+                        <span class="icon-like"></span>
+                        <span class="badge">{{post.likesCount}}</span>
+                    </a>
+                </li>
+                <li role="presentation" data-ng-show="!show">
+                    <a ng-href data-ng-click="show = true; post.likesCount = post.likesCount + 1;">
+                        <span class="icon-like-filled"></span>
+                        <span class="badge">{{post.likesCount}}</span>
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="#">
+                        <span class="icon-comment"></span>
+                        <span class="badge">{{post.totalCommentsCount}}</span>
+                    </a>
+                </li>
+            </ul>-->
+
+            <footer class="panel-footer " ng-if="!wallOwner.username || wallOwner.isFriend || wallOwner.isCurrentUser">
+                <span class="post-likesCount">{{post.likesCount}}</span>
+                <span class="icon-like-filled" style="color: #337ab7" ng-if="!post.liked"></span>
+                <span class="icon-like" style="color: #337ab7" ng-if="post.liked"></span>
+
+                <a class="like-anchor" ng-click="post.liked = !post.liked; !post.liked && unlikePost(post.id); post.liked && likePost(post.id);"> {{!post.liked && 'Like' || 'Unlike'}}</a>
+                <span class="comments-count">{{post.totalCommentsCount}}</span>
+                <span class="icon-comment" style="color: #337ab7"></span>
+                <a class="add-comment-anchor">Comment</a>
+            </footer>
+        </div>
+    </div>
+
+    <hr />
+
+    <div ng-include="'partials/commentView.html'" ng-repeat="comment in post.comments"></div>
+    <div class="media-left">
+        <a href="#" class="my-inline">
+            <img class="media-object img-circle my-avatar-42" ng-src="{{post.author.profileImageData}}" alt="{{post.author.name}}'s profile picture">
+        </a>
+    </div>
+
+    <div class="media-body media-left">
+        <!--<form ng-submit="postCommentOnPost();" name="addCommentOnPostForm" class="my-inline">-->
+        <form ng-submit="postCommentOnPost();" class="my-inline">
+            <div class="form-group">
+                <textarea class="form-control" placeholder="Write a comment..." rows="1" ng-model="comment.commentContent" required></textarea>
+                <!--<textarea autogrow class="form-control  msd-elastic" placeholder="Write a comment..." rows="1" ng-model="commentContent" required></textarea>-->
+            </div>
+            <!--<button type="submit" class="btn btn-primary btn-sm" ng-disabled="addCommentOnPostForm.$invalid">Comment</button>-->
+            <button type="submit" class="btn btn-primary btn-sm">Comment</button>
+        </form>
+    </div>
+
+</div>

@@ -1,9 +1,10 @@
 ﻿'use strict';
 
-app.controller('friendsController', function ($scope, $location, $routeParams, configService, profileService, usersService, authenticationService, notyService) {
+app.controller('friendsController', function ($scope, $location, $routeParams, configService, profileService, usersService, authenticationService, usSpinnerService, notyService) {
     $scope.config = configService;
     $scope.showFriends = function showFriends() {
         if ($scope.isLoggedIn()) {
+            usSpinnerService.spin('spinner');
             var username = $routeParams.username;
             if (username === authenticationService.getUsername() || username === '') {
                 profileService.getOwnFriends()
@@ -14,8 +15,10 @@ app.controller('friendsController', function ($scope, $location, $routeParams, c
                             }
                         });
                         $scope.freindsData = serverResponse.data;
+                        usSpinnerService.stop('spinner');
                     }, function(serverError) {
                         notyService.showError('Cannot pull your friends list. Please check your internet connection or try later.', serverError);
+                        usSpinnerService.stop('spinner');
                     });
             } else {
                 usersService.getFriendsDetailedFriendList(username)
@@ -26,7 +29,9 @@ app.controller('friendsController', function ($scope, $location, $routeParams, c
                             }
                         });
                         $scope.freindsData = serverResponse.data;
-                    }, function() {
+                        usSpinnerService.stop('spinner');
+                    }, function () {
+                        usSpinnerService.stop('spinner');
                         $location.path('404');
                     });
             };

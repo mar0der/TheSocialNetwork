@@ -1,24 +1,39 @@
 ﻿'use strict';
 
-app.controller('wallController', function ($scope, $location, $routeParams, configService, usersService, authenticationService, postsService, profileService, notyService) {
+app.controller('wallController', function ($scope, $location, $routeParams, configService, usersService, authenticationService, postsService, profileService, usSpinnerService, notyService) {
     $scope.config = configService;
     $scope.userIsFriend = false;
     $scope.isMyWall = true;
     $scope.wallData = [];
     $scope.comment = {};
+    var feedStartPostId = '';
 
     var username = $routeParams.username;
 
-    $scope.showWall = function showWall(username) {
+    $scope.loadUserWall = function () {
+
         if ($scope.isLoggedIn()) {
-            usersService.getUsersWallByPages(username, '', 10)
-            .then(function (serverResponse) {
-                $scope.wallData = serverResponse.data;
-            }, function (serverError, status) {
-                notyService.showError('Unable to load ' + username + 'wall', serverError);
-            });
+            if ($scope.busy) {
+                return;
+            }
+            $scope.busy = true;
+            usSpinnerService.spin('spinner');
+            usersService.getUsersWallByPages($routeParams['username'], feedStartPostId, 10)
+                .then(function (responseData) {
+                    $scope.wallData = $scope.wallData.concat(responseData.data);
+                    if ($scope.wallData.length > 0) {
+                        feedStartPostId = $scope.wallData[$scope.wallData.length - 1].id;
+                    }
+                    $scope.busy = false;
+                    usSpinnerService.stop('spinner');
+                }, function (serverError) {
+                    usSpinnerService.stop('spinner');
+                    notyService.showError('Failed to load ' + $routeParams['username'] + ' wall!', serverError);
+                }
+            );
         }
-    }
+
+    };
 
     $scope.postOnWall = function postOnWall() {
         if ($scope.isLoggedIn()) {
@@ -74,7 +89,7 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
 
     //the script starts here
     if (username === authenticationService.getUsername()) {
-        $scope.showWall(username);
+        //$scope.showWall(username);
         $scope.isMyWall = true;
         $scope.isMyFriend = false;
     } else {
@@ -88,7 +103,8 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
                     $scope.isMyFriend = false;
                     $scope.isMyWall = false;
                 }
-                $scope.showWall(username);
+
+                $scope.isUserExists = true;
             }, function () {
                 $location.path('/404');
             });
