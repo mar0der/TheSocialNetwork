@@ -76,23 +76,21 @@
 
     <hr />
 
-    <div ng-include="'partials/commentView.html'" ng-repeat="comment in post.comments"></div>
+    <!--display comments-->
+    <div ng-include="'partials/commentView.html'" ng-repeat="comment in post.comments | orderBy: 'date': reverse"></div>
+
+    <!--post comment-->
     <div class="media-left">
         <a href="#" class="my-inline">
             <img class="media-object img-circle my-avatar-42" ng-src="{{post.author.profileImageData}}" alt="{{post.author.name}}'s profile picture">
         </a>
     </div>
-
     <div class="media-body media-left">
-        <!--<form ng-submit="postCommentOnPost();" name="addCommentOnPostForm" class="my-inline">-->
-        <form ng-submit="postCommentOnPost();" class="my-inline">
+        <form comment-controller-directive ng-submit="addCommentToPost(post, newCommentData.commentContent);" class="my-inline" name="addCommentToPostForm">
             <div class="form-group">
-                <textarea class="form-control" placeholder="Write a comment..." rows="1" ng-model="comment.commentContent" required></textarea>
-                <!--<textarea autogrow class="form-control  msd-elastic" placeholder="Write a comment..." rows="1" ng-model="commentContent" required></textarea>-->
+                <textarea ng-model="newCommentData.commentContent" class="form-control msd-elastic" placeholder="Write a comment..." rows="1" required></textarea>
             </div>
-            <!--<button type="submit" class="btn btn-primary btn-sm" ng-disabled="addCommentOnPostForm.$invalid">Comment</button>-->
-            <button type="submit" class="btn btn-primary btn-sm">Comment</button>
+            <button ng-disabled="addCommentToPostForm.$invalid" type="submit" class="btn btn-primary btn-sm">Comment</button>
         </form>
     </div>
-
 </div>

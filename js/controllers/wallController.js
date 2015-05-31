@@ -33,7 +33,6 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
                 }
             );
         }
-
     };
 
     $scope.postOnWall = function postOnWall() {
@@ -51,10 +50,6 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
                     });
             }
         }
-    }
-
-    $scope.postCommentOnPost = function postCommentOnPost() {
-        console.log($scope.comment.commentContent);
     }
 
     $scope.getDataAboutCurrentUser = function getDataAboutCurrentUser() {

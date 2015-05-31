@@ -50,9 +50,8 @@ app.controller('authenticationController', function ($scope, $rootScope, $locati
                 $rootScope.$broadcast('logout');
                 notyService.showInfo("Successful Logout!");
                 $location.path('/welcome');
-            }, function (serverError) {
+            }, function () {
                 authenticationService.clearCredentials();
-                notyService.showError("Unsuccessful Logout!", serverError);
                 $location.path('/welcome');
             });
     }

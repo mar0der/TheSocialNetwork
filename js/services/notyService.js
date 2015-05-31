@@ -14,10 +14,10 @@ app.factory('notyService',
             showError: function (customMessage, serverError) {
                 if (!serverError || serverError.status !== 401) {
                     if (serverError) {
-                        customMessage = customMessage + "<br>" + serverError.statusMessage;
-                    } else {
-                        customMessage = customMessage + "<br>";
-                    }
+                        if (serverError.statusMessage) {
+                            customMessage = customMessage + "<br>" + serverError.statusMessage;
+                        }
+                    } 
                     noty({
                         text: customMessage,
                         type: 'error',
