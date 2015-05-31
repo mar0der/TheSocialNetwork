@@ -3,14 +3,31 @@
         <img class="media-object img-circle my-avatar-42" ng-src="{{comment.author.profileImageData}}" alt="{{comment.author.name}}'s profile picture">
     </a>
 </div>
-<div class="media-body media-left" >
+<div class="media-body media-left">
     <span class="media-heading"><a href="#/{{comment.author.username}}">{{comment.author.name}}</a></span>
-    {{comment.commentContent}}
-    <div class="my-margin-bottom-15" >
-        {{comment.date| date : "dd MMM yyyy hh:mm a"}} 
+    <div class="comment-content md-24">
+        <span ng-if="!comment.editing">{{comment.commentContent}}</span>
+        <form ng-show="comment.editing" name="editCommentForm" ng-submit="editComment(post, comment); comment.editing = false">
+            <textarea ng-model="comment.newCommentContent" ng-minlength="1" required class="form-group col-lg-24 msd-elastic" ></textarea>
+            <button class="btn btn-primary btn-sm" type="submit" ng-disabled="editCommentForm.$invalid">Save</button>
+            <a class="btn btn-default btn-sm" ng-click="comment.editing = false">Cancel</a>
+        </form>
+    </div>
+    <div class="my-margin-bottom-15">
+        {{comment.date| date : "dd MMM yyyy hh:mm a"}}
         <span ng-show="isMyWall || post.author.isFriend || post.wallOwner.isFriend">
-             <span ng-show="!comment.liked"> - <a ng-href ng-click="likeComment(post, comment);" class="my-like-unlike">Like </a><span class="icon-like-filled"></span> {{comment.likesCount}}</span>
-             <span ng-show="comment.liked"> - <a ng-href ng-click="unlikeComment(post, comment);" class="my-like-unlike">Unlike </a><span class="icon-like"></span>{{comment.likesCount}}</span>
+            <span ng-show="!comment.liked"> - <a ng-href ng-click="likeComment(post, comment);" class="my-like-unlike">Like </a><span class="icon-like-filled"></span> {{comment.likesCount}}</span>
+            <span ng-show="comment.liked"> - <a ng-href ng-click="unlikeComment(post, comment);" class="my-like-unlike">Unlike </a><span class="icon-like"></span>{{comment.likesCount}}</span>
         </span>
+
+        <div ng-show="post.author.username === me.username || comment.author.username === me.username" class="btn-group drop-down comment-caret pull-right" role="group">
+            <span type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <span class="fa fa-chevron-down drop-down-comment-caret my-like-unlike">V</span>
+            </span>
+            <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                <li ng-show="comment.author.username === me.username" ng-click="comment.editing = true; comment.newCommentContent = comment.commentContent"><a>Edit</a></li>
+                <li ng-show="post.author.username === me.username || comment.author.username === me.username"><a ng-click="deleteComment(post, comment)">Delete</a></li>
+            </ul>
+        </div>
     </div>
 </div>

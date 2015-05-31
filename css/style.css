@@ -117,15 +117,33 @@ html {
     margin-top: 107px;
 }
 
-/*likes*/
-/*.like-button {
-     cursor: pointer;
- }
-
-.unlike-button {
-    cursor: pointer;
-}*/
-
+/*likes and buttons without pointer*/
 .my-like-unlike {
     cursor: pointer;
 }
+
+/*.post-caret {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 17px;
+    cursor: pointer;
+    color: lightgray;
+}*/
+
+.drop-down-post-caret {
+    color: #505050;
+}
+
+.dropdown-menu-right {
+    min-width: 0;
+}
+
+/*.comment-caret {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 17px;
+    cursor: pointer;
+    color: #505050;
+}*/

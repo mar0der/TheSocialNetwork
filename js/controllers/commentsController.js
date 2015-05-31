@@ -69,5 +69,40 @@ app.controller('commentsController', function ($scope, configService, usSpinnerS
         }
     };
 
+    $scope.editComment = function (post, comment) {
+        if ($scope.isLoggedIn()) {
+            usSpinnerService.spin('spinner');
+            commentsService.editCommentToPost(post.id, comment.id, comment.newCommentContent)
+                .then(function () {
+                    usSpinnerService.stop('spinner');
+                    comment.commentContent = comment.newCommentContent;
+                },
+                function (error) {
+                    notyService.showError("Unable to edit comment!", error);
+                    usSpinnerService.stop('spinner');
+                }
+            );
+        }
+    };
+
+    $scope.deleteComment = function (post, comment) {
+        if ($scope.isLoggedIn()) {
+            usSpinnerService.spin('spinner');
+            commentsService.deleteCommentToPost(post.id, comment.id)
+                .then(function () {
+                    var index = post.comments.indexOf(comment);
+                    post.comments.splice(index, 1);
+                    post.totalCommentsCount--;
+                    usSpinnerService.stop('spinner');
+                    notyService.showInfo("Comment successfully deleted.");
+                },
+                function (error) {
+                    notyService.showError("Unable to delete comment!", error);
+                    usSpinnerService.stop('spinner');
+                }
+            );
+        }
+    };
+
 
 });
