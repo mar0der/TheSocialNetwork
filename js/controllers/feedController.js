@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-app.controller('feedController', function ($scope, $rootScope, $location, $interval, configService, profileService, usSpinnerService, notyService) {
+app.controller('feedController', function ($scope, $rootScope, $location, $interval, configService, profileService, postsService, usSpinnerService, notyService) {
 
     $scope.config = configService;
     var feedStartPostId = '';
@@ -29,6 +29,42 @@ app.controller('feedController', function ($scope, $rootScope, $location, $inter
                 usSpinnerService.stop('spinner');
             });
         }
+
+
+        $scope.likePost = function (post) {
+            if ($scope.isLoggedIn()) {
+                usSpinnerService.spin('spinner');
+                postsService.likePost(post.id)
+                    .then(function () {
+                        usSpinnerService.stop('spinner');
+                        post.liked = true;
+                        post.likesCount++;
+                    },
+                    function (serverError) {
+                        usSpinnerService.stop('spinner');
+                        notyService.showError("Failed to like post!", serverError);
+                    }
+                );
+            }
+        };
+
+        $scope.unlikePost = function (post) {
+            if ($scope.isLoggedIn()) {
+                usSpinnerService.spin('spinner');
+                postsService.unlikePost(post.id)
+                    .then(function () {
+                        usSpinnerService.stop('spinner');
+                        post.liked = false;
+                        post.likesCount--;
+                    },
+                    function (serverError) {
+                        usSpinnerService.stop('spinner');
+                        notyService.showError("Failed to unlike post!", serverError);
+                    }
+                );
+            }
+        };
+
 
     };
 

@@ -20,11 +20,15 @@
                     <p>
                         {{post.postContent}}
                     </p>
-                    <ul class="nav nav-pills pull-right" role="tablist">
-                        <li role="presentation" data-ng-show="show"><a ng-href data-ng-click="show = false; post.likesCount = post.likesCount - 1;">unlike<span class="badge">{{post.likesCount}}</span></a></li>
-                        <li role="presentation" data-ng-show="!show"><a ng-href data-ng-click="show = true; post.likesCount = post.likesCount + 1;">like<span class="badge">{{post.likesCount}}</span></a></li>
-                        <li role="presentation"><a href="#">Comments <span class="badge">{{post.totalCommentsCount}}</span></a></li>
-                    </ul>
+                    <div class="pull-right">
+                        <span ng-show="post.author.isFriend || post.wallOwner.isFriend">
+                            <span ng-show="!post.liked" ng-click="likePost(post);" class="icon-like-filled my-like-unlike">Like</span>
+                            <span ng-show="post.liked" ng-click="unlikePost(post);" class="icon-like my-like-unlike">Unlike</span>
+                            <span class="views post-details" title="likes"> {{post.likesCount}}</span>
+                        </span>
+                        <span class="fa fa-comments" title="comments"></span>
+                        <span class="comments-count post-details icon-comment" title="comments"> {{post.totalCommentsCount}}</span>
+                    </div>
                 </div>
             </div>
             <!--display view more comments-->

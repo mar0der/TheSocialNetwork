@@ -83,14 +83,6 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
         }
     }
 
-    //like/unlike posts
-    $scope.likePost = function likePost(post) {
-        console.log(post);
-    }
-    $scope.unlikePost = function unlikePost(post) {
-        console.log(post);
-    }
-
     //the script starts here
     if (username === authenticationService.getUsername()) {
         //$scope.showWall(username);

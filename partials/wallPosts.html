@@ -20,7 +20,7 @@
             </p>
 
             <div class="pull-right">
-                <span ng-if="isMyWall|| isOwnFeed || post.author.isFriend || post.wallOwner.isFriend">
+                <span ng-show="isMyWall|| isOwnFeed || post.author.isFriend || post.wallOwner.isFriend">
                     <span ng-show="!post.liked" ng-click="likePost(post);" class="icon-like-filled my-like-unlike">Like</span>
                     <span ng-show="post.liked" ng-click="unlikePost(post);" class="icon-like my-like-unlike">Unlike</span>
                     <span class="views post-details" title="likes"> {{post.likesCount}}</span>
