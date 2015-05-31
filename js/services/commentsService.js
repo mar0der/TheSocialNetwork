@@ -98,7 +98,7 @@ app.factory('commentsService', function($http, $q, authenticationService, config
     }
 
     //DELETE api/posts/{postId}/comments/{commentId}/likes	
-    service.unlikeCommnet = function unlikeCommnet(postId, commentId) {
+    service.unlikeComment = function unlikeCommnet(postId, commentId) {
         //var deferred = $q.defer();
         return $http.delete(serviceUrl + postId + '/comments/' + commentId + '/likes', authenticationService.getHeaders());
         //    .success(function (responseData) {

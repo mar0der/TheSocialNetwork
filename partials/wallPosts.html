@@ -36,7 +36,7 @@
                 <a href ng-click="getPostAllComments(post)">View {{hiddenComments}} more comments</a>
             </div>
             <!--display comments-->
-            <div ng-include="'partials/commentView.html'" ng-repeat="comment in post.comments | orderBy: 'date': reverse"></div>
+            <div comment-controller-directive ng-include="'partials/commentView.html'" ng-repeat="comment in post.comments | orderBy: 'date': reverse"></div>
             <!--post comment-->
             <div ng-include="'partials/addCommentBox.html'" ng-show="isMyWall || post.author.isFriend || post.wallOwner.isFriend"></div>
         </div>

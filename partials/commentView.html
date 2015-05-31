@@ -6,8 +6,11 @@
 <div class="media-body media-left" >
     <span class="media-heading"><a href="#/{{comment.author.username}}">{{comment.author.name}}</a></span>
     {{comment.commentContent}}
-    <div class="my-margin-bottom-15">{{comment.date| date : "dd MMM yyyy hh:mm a"}} -
-        <span ng-show="!comment.liked"><a href>Like </a><span class="icon-like-filled"></span> {{comment.likesCount}}</span>
-        <span ng-show="comment.liked"><a href>Unlike </a><span class="icon-like"></span>{{comment.likesCount}}</span>
+    <div class="my-margin-bottom-15" >
+        {{comment.date| date : "dd MMM yyyy hh:mm a"}} 
+        <span ng-show="isMyWall || post.author.isFriend || post.wallOwner.isFriend">
+             <span ng-show="!comment.liked"> - <a ng-href ng-click="likeComment(post, comment);" class="my-like-unlike">Like </a><span class="icon-like-filled"></span> {{comment.likesCount}}</span>
+             <span ng-show="comment.liked"> - <a ng-href ng-click="unlikeComment(post, comment);" class="my-like-unlike">Unlike </a><span class="icon-like"></span>{{comment.likesCount}}</span>
+        </span>
     </div>
 </div>

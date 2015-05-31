@@ -35,6 +35,39 @@ app.controller('commentsController', function ($scope, configService, usSpinnerS
         }
     };
 
+    $scope.likeComment = function likeComment(post, comment) {
+        if ($scope.isLoggedIn()) {
+            usSpinnerService.spin('spinner');
+            commentsService.likeCommnet(post.id, comment.id)
+                .then(function () {
+                    usSpinnerService.stop('spinner');
+                    comment.liked = true;
+                    comment.likesCount++;
+                },
+                function (serverError) {
+                    usSpinnerService.stop('spinner');
+                    notyService.showError("Unable to like comment!", serverError);
+                }
+            );
+        }
+    };
+
+    $scope.unlikeComment = function unlikeComment(post, comment) {
+        if ($scope.isLoggedIn()) {
+            usSpinnerService.spin('spinner');
+            commentsService.unlikeComment(post.id, comment.id)
+                .then(function () {
+                    usSpinnerService.stop('spinner');
+                    comment.liked = false;
+                    comment.likesCount--;
+                },
+                function (error) {
+                    notyService.showError("Unable to unlike comment!", error);
+                    usSpinnerService.stop('spinner');
+                }
+            );
+        }
+    };
 
 
 });
