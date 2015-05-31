@@ -1,4 +1,4 @@
-﻿<div class="col-lg-{{config.leftSidebarCols}}" ng-include="'partials/profileSidebar.html'" ng-if="isLoggedIn"></div>
+﻿<div class="col-lg-{{config.leftSidebarCols}}" ng-include="'partials/profileSidebar.html'" ng-if="isLoggedIn" ng-init="myInfo()"></div>
 <div class="col-lg-{{config.contentCols}}" ng-controller="feedController">
     <div infinite-scroll='getMyFeed()' infinite-scroll-disabled='busy' nfinite-scroll-distance="0">
         <div class="well well-lg" ng-repeat="post in feedData">
@@ -27,6 +27,10 @@
                     </ul>
                 </div>
             </div>
+            <!--display comments-->
+            <div ng-include="'partials/commentView.html'" ng-repeat="comment in post.comments | orderBy: 'date': reverse"></div>
+            <!--post comment-->
+            <div ng-include="'partials/addCommentBox.html'"></div>
         </div>
     </div>
 </div>

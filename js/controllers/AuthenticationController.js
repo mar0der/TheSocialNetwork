@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-app.controller('authenticationController', function ($scope, $rootScope, $location, $route, $routeParams, usersService, authenticationService, usSpinnerService, notyService) {
+app.controller('authenticationController', function ($scope, $rootScope, $location, $route, $routeParams, usersService, profileService, authenticationService, usSpinnerService, notyService) {
 
     var clearData = function () {
         //$scope.loginData = "";
@@ -61,6 +61,20 @@ app.controller('authenticationController', function ($scope, $rootScope, $locati
             return true;
         }
         return false;
+    }
+
+    $scope.myInfo = function myInfo() {
+        if ($scope.isLoggedIn()) {
+            usSpinnerService.spin('spinner');
+            profileService.getDataAboutMe()
+                .then(function(serverResponse) {
+                    $scope.me = serverResponse.data;
+                    usSpinnerService.stop('spinner');
+                }, function(serverError) {
+                    usSpinnerService.stop('spinner');
+                    notyService.showError("Unable to pull your info!", serverError);
+                });
+        }
     }
 
     $scope.isLoggedIn = function isLoggedIn() {

@@ -1,4 +1,5 @@
-﻿<div class="well well-lg" ng-repeat="post in wallData">
+﻿<div class="well well-lg" ng-repeat="post in wallData" ng-init="myInfo()">
+
     <div class="media">
         <div class="media-left">
             <a href="#">
@@ -74,23 +75,10 @@
         </div>
     </div>
 
-    <hr />
+    <hr/>
 
     <!--display comments-->
     <div ng-include="'partials/commentView.html'" ng-repeat="comment in post.comments | orderBy: 'date': reverse"></div>
-
     <!--post comment-->
-    <div class="media-left">
-        <a href="#" class="my-inline">
-            <img class="media-object img-circle my-avatar-42" ng-src="{{post.author.profileImageData}}" alt="{{post.author.name}}'s profile picture">
-        </a>
-    </div>
-    <div class="media-body media-left">
-        <form comment-controller-directive ng-submit="addCommentToPost(post, newCommentData.commentContent);" class="my-inline" name="addCommentToPostForm">
-            <div class="form-group">
-                <textarea ng-model="newCommentData.commentContent" class="form-control msd-elastic" placeholder="Write a comment..." rows="1" required></textarea>
-            </div>
-            <button ng-disabled="addCommentToPostForm.$invalid" type="submit" class="btn btn-primary btn-sm">Comment</button>
-        </form>
-    </div>
+    <div ng-include="'partials/addCommentBox.html'"></div>
 </div>
