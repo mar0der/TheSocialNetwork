@@ -78,7 +78,11 @@
     <hr/>
 
     <!--display comments-->
+    <div class="pointer pull-right" ng-if="post.comments.length < post.totalCommentsCount"  ng-init="hiddenComments = post.totalCommentsCount - post.comments.length">
+        <a href ng-click="getPostComments(post)">View {{hiddenComments}} more comments</a>
+    </div>
+
     <div ng-include="'partials/commentView.html'" ng-repeat="comment in post.comments | orderBy: 'date': reverse"></div>
     <!--post comment-->
-    <div ng-include="'partials/addCommentBox.html'"></div>
+    <div ng-include="'partials/addCommentBox.html'" ng-show="isMyWall || isMyFriend"></div>
 </div>

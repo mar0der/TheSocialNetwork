@@ -21,6 +21,8 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
             usSpinnerService.spin('spinner');
             usersService.getUsersWallByPages($routeParams['username'], wallStartPostId, 10)
                 .then(function (responseData) {
+                    console.log(responseData.data);
+
                     $scope.wallData = $scope.wallData.concat(responseData.data);
                     if ($scope.wallData.length > 0) {
                         wallStartPostId = $scope.wallData[$scope.wallData.length - 1].id;
