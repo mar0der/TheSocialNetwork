@@ -1,5 +1,4 @@
 ﻿<div class="well well-lg" ng-repeat="post in wallData" ng-init="myInfo()">
-
     <div class="media">
         <div class="media-left">
             <a href="#">
@@ -25,20 +24,21 @@
                     <span ng-show="post.liked" ng-click="unlikePost(post);" class="icon-like my-like-unlike">Unlike</span>
                     <span class="views post-details" title="likes"> {{post.likesCount}}</span>
                 </span>
-                <span class="fa fa-comments" title="comments"></span> 
+                <span class="fa fa-comments" title="comments"></span>
                 <span class="comments-count post-details icon-comment" title="comments"> {{post.totalCommentsCount}}</span>
             </div>
-    </div>
-
-    <hr/>
-    <div >
-        <!--display view more comments-->
-        <div comment-controller-directive class="pointer pull-right" ng-if="post.comments.length < post.totalCommentsCount" ng-init="hiddenComments = post.totalCommentsCount - post.comments.length">
-            <a href ng-click="getPostAllComments(post)">View {{hiddenComments}} more comments</a>
         </div>
-        <!--display comments-->
-        <div ng-include="'partials/commentView.html'" ng-repeat="comment in post.comments | orderBy: 'date': reverse"></div>
-        <!--post comment-->
-        <div ng-include="'partials/addCommentBox.html'" ng-show="isMyWall || isMyFriend"></div>
+
+        <hr />
+        <div>
+            <!--display view more comments-->
+            <div comment-controller-directive class="pointer pull-right" ng-if="post.comments.length < post.totalCommentsCount" ng-init="hiddenComments = post.totalCommentsCount - post.comments.length">
+                <a href ng-click="getPostAllComments(post)">View {{hiddenComments}} more comments</a>
+            </div>
+            <!--display comments-->
+            <div ng-include="'partials/commentView.html'" ng-repeat="comment in post.comments | orderBy: 'date': reverse"></div>
+            <!--post comment-->
+            <div ng-include="'partials/addCommentBox.html'" ng-show="isMyWall || post.author.isFriend || post.wallOwner.isFriend"></div>
+        </div>
     </div>
 </div>
