@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-app.controller('authenticationController', function ($scope, $rootScope, $location, $route, $routeParams, usersService, authenticationService, notyService) {
+app.controller('authenticationController', function ($scope, $rootScope, $location, $route, $routeParams, usersService, authenticationService, usSpinnerService, notyService) {
 
     var clearData = function () {
         //$scope.loginData = "";
@@ -10,29 +10,35 @@ app.controller('authenticationController', function ($scope, $rootScope, $locati
     };
 
     $scope.login = function login(loginData) {
+        usSpinnerService.spin('spinner');
         usersService.login(loginData)
         .then(function (serverData) {
             notyService.showInfo("Successful Login!");
             authenticationService.setCredentials(serverData.data);
             $rootScope.$broadcast('login');
             clearData();
+            usSpinnerService.stop('spinner');
             $location.path('/');
         },
         function (serverError) {
+            usSpinnerService.stop('spinner');
             notyService.showError("Unsuccessful Login!", serverError);
         });
     };
 
     $scope.register = function register(registerData) {
+        usSpinnerService.spin('spinner');
         usersService.register(registerData)
         .then(function (serverData) {
             notyService.showInfo("Successful Registeration!");
             authenticationService.setCredentials(serverData.data);
             $rootScope.$broadcast('login');
             clearData();
+            usSpinnerService.stop('spinner');
             $location.path('/');
         },
         function (serverError) {
+            usSpinnerService.stop('spinner');
             notyService.showError("Unsuccessful Registeration!", serverError);
         });
     };
@@ -61,11 +67,7 @@ app.controller('authenticationController', function ($scope, $rootScope, $locati
     $scope.isLoggedIn = function isLoggedIn() {
         return authenticationService.isLoggedIn();
     }
-
-    $scope.setUsersVars = function(username) {
-        alert(username);
-    }
-
+    
     $scope.clear = function () {
         $route.reload();
     }

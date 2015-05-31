@@ -39,11 +39,14 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
     $scope.postOnWall = function postOnWall() {
         if ($scope.isLoggedIn()) {
             if ($scope.isMyWall || $scope.isMyFriend) {
+                usSpinnerService.spin('spinner');
                 postsService.addPost($scope.postContent, username)
                     .then(function (serverResponse) {
                         $scope.wallData.unshift(serverResponse.data);
                         $scope.postContent = '';
+                        usSpinnerService.stop('spinner');
                     }, function (serverError) {
+                        usSpinnerService.stop('spinner');
                         notyService.showError('Unable to post on ' + username + '`s wall', serverError);
                     });
             }
@@ -70,11 +73,14 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
 
     $scope.sendFriendRequest = function sendFriendRequest(username) {
         if ($scope.isLoggedIn()) {
+            usSpinnerService.spin('spinner');
             profileService.sendFriendsRequest(username)
             .then(function (serverResponse) {
                 notyService.showInfo(serverResponse.data.message);
                 $scope.userData.hasPendingRequest = true;
+                usSpinnerService.stop('spinner');
             }, function (serverError) {
+                usSpinnerService.stop('spinner');
                 notyService.showError('Unable to send friends request to ' + username, serverError);
             });
         }

@@ -12,8 +12,12 @@ app.factory('notyService',
                 });
             },
             showError: function (customMessage, serverError) {
-                customMessage = customMessage + "<br>" + serverError.statusMessage;
-                if (serverError.status !== 401) {
+                if (!serverError || serverError.status !== 401) {
+                    if (serverError) {
+                        customMessage = customMessage + "<br>" + serverError.statusMessage;
+                    } else {
+                        customMessage = customMessage + "<br>";
+                    }
                     noty({
                         text: customMessage,
                         type: 'error',
