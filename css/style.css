@@ -118,10 +118,14 @@ html {
 }
 
 /*likes*/
-.like-button {
+/*.like-button {
      cursor: pointer;
  }
 
 .unlike-button {
+    cursor: pointer;
+}*/
+
+.my-like-unlike {
     cursor: pointer;
 }

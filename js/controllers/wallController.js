@@ -114,4 +114,39 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
             });
         }
     }
+
+    $scope.likePost = function (post) {
+        if ($scope.isLoggedIn()) {
+            usSpinnerService.spin('spinner');
+            postsService.likePost(post.id)
+                .then(function () {
+                    usSpinnerService.stop('spinner');
+                    post.liked = true;
+                    post.likesCount++;
+                },
+                function (serverError) {
+                    usSpinnerService.stop('spinner');
+                    notyService.showError("Failed to like post!", serverError);
+                }
+            );
+        }
+    };
+
+    $scope.unlikePost = function (post) {
+        if ($scope.isLoggedIn()) {
+            usSpinnerService.spin('spinner');
+            postsService.unlikePost(post.id)
+                .then(function () {
+                    usSpinnerService.stop('spinner');
+                    post.liked = false;
+                    post.likesCount--;
+                },
+                function (serverError) {
+                    usSpinnerService.stop('spinner');
+                    notyService.showError("Failed to unlike post!", serverError);
+                }
+            );
+        }
+    };
+
 });

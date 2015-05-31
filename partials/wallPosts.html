@@ -20,59 +20,14 @@
             </p>
 
             <div class="pull-right">
-                <span data-ng-show="show">
-                    <a href style="text-decoration: none;" data-ng-click="show = false; post.likesCount = post.likesCount + 1;">
-                        <span class="icon-like-filled"></span>
-                        <span class="badge">{{post.totalCommentsCount}}</span>
-                    </a>
+                <span ng-if="isMyWall|| isOwnFeed || post.author.isFriend || post.wallOwner.isFriend">
+                    <span ng-show="!post.liked" ng-click="likePost(post);" class="icon-like-filled my-like-unlike">Like</span>
+                    <span ng-show="post.liked" ng-click="unlikePost(post);" class="icon-like my-like-unlike">Unlike</span>
+                    <span class="views post-details" title="likes"> {{post.likesCount}}</span>
                 </span>
-                <span data-ng-show="!show">
-                    <a href style="text-decoration: none;" data-ng-click="show = true; post.likesCount = post.likesCount - 1;">
-                        <span class="icon-like"></span>
-                        <span class="badge">{{post.totalCommentsCount}}</span>
-                    </a>
-                </span>
-                <span>
-                    <a href style="text-decoration: none;">
-                        <span class="icon-comment"></span>
-                        <span class="badge">{{post.totalCommentsCount}}</span>
-                    </a>
-                </span>
+                <span class="fa fa-comments" title="comments"></span> 
+                <span class="comments-count post-details icon-comment" title="comments"> {{post.totalCommentsCount}}</span>
             </div>
-
-
-            <!--<ul class="nav nav-pills pull-right" role="tablist">
-                <li role="presentation" data-ng-show="show">
-                    <a ng-href data-ng-click="show = false; post.likesCount = post.likesCount - 1;">
-                        <span class="icon-like"></span>
-                        <span class="badge">{{post.likesCount}}</span>
-                    </a>
-                </li>
-                <li role="presentation" data-ng-show="!show">
-                    <a ng-href data-ng-click="show = true; post.likesCount = post.likesCount + 1;">
-                        <span class="icon-like-filled"></span>
-                        <span class="badge">{{post.likesCount}}</span>
-                    </a>
-                </li>
-                <li role="presentation">
-                    <a href="#">
-                        <span class="icon-comment"></span>
-                        <span class="badge">{{post.totalCommentsCount}}</span>
-                    </a>
-                </li>
-            </ul>-->
-
-            <footer class="panel-footer " ng-if="!wallOwner.username || wallOwner.isFriend || wallOwner.isCurrentUser">
-                <span class="post-likesCount">{{post.likesCount}}</span>
-                <span class="icon-like-filled" style="color: #337ab7" ng-if="!post.liked"></span>
-                <span class="icon-like" style="color: #337ab7" ng-if="post.liked"></span>
-
-                <a class="like-anchor" ng-click="post.liked = !post.liked; !post.liked && unlikePost(post.id); post.liked && likePost(post.id);"> {{!post.liked && 'Like' || 'Unlike'}}</a>
-                <span class="comments-count">{{post.totalCommentsCount}}</span>
-                <span class="icon-comment" style="color: #337ab7"></span>
-                <a class="add-comment-anchor">Comment</a>
-            </footer>
-        </div>
     </div>
 
     <hr/>

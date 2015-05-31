@@ -36,9 +36,5 @@ app.controller('commentsController', function ($scope, configService, usSpinnerS
     };
 
 
-    $scope.doSomething = function doSomething() {
 
-        alert('doing something');
-
-    };
 });
