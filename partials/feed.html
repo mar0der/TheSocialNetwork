@@ -9,6 +9,15 @@
                     </a>
                 </div>
                 <div class="media-body media-left">
+                    <div ng-show="post.author.username === me.username" class="btn-group drop-down post-caret pull-right my-like-unlike" role="group">
+                        <span type="button" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <span class="fa fa-chevron-down drop-down-post-caret">V</span>
+                        </span>
+                        <ul class="dropdown-menu dropdown-menu-right" role="menu" >
+                            <li ng-show="post.author.username === me.username" ng-click="post.editing = true; post.newPostContent = post.postContent"><a>Edit</a></li>
+                            <li ng-show="post.author.username === me.username"><a ng-click="deletePost(post)">Delete</a></li>
+                        </ul>
+                    </div>
                     <h4 class="media-heading">
                         <a ng-href="#/{{post.author.username}}">{{post.author.name}}</a>
                         <span ng-show="post.wallOwner.username != post.author.username">
@@ -17,9 +26,16 @@
                         </span>
                     </h4>
                     <span class="blog-post-meta">{{post.date| date : "dd MMM yyyy  hh:mm a"}}</span>
-                    <p>
-                        {{post.postContent}}
-                    </p>
+
+                    <div>
+                        <span ng-if="!post.editing">{{post.postContent}}</span>
+                        <form ng-show="post.editing" name="editPostForm" ng-submit="editPost(post); post.editing = false">
+                            <textarea ng-model="post.newPostContent" ng-minlength="1" required class="form-group col-xs-24 msd-elastic"></textarea>
+                            <button class="btn btn-primaty btn-sm" type="submit" ng-disabled="editPostForm.$invalid">Save</button>
+                            <a class="btn btn-default btn-sm" ng-click="post.editing = false">Cancel</a>
+                        </form>
+                    </div>
+
                     <div class="pull-right">
                         <span ng-show="post.author.isFriend || post.wallOwner.isFriend">
                             <span ng-show="!post.liked" ng-click="likePost(post);" class="icon-like-filled my-like-unlike">Like</span>

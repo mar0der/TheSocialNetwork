@@ -81,30 +81,6 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
         }
     }
 
-    //the script starts here
-    if (username === authenticationService.getUsername()) {
-        //$scope.showWall(username);
-        $scope.isMyWall = true;
-        $scope.isMyFriend = false;
-    } else {
-        if ($scope.isLoggedIn()) {
-            usersService.getUserPreviewData(username)
-            .then(function (serverResponse) {
-                if (serverResponse.data.isFriend) {
-                    $scope.isMyFriend = true;
-                    $scope.isMyWall = false;
-                } else {
-                    $scope.isMyFriend = false;
-                    $scope.isMyWall = false;
-                }
-
-                $scope.isUserExists = true;
-            }, function () {
-                $location.path('/404');
-            });
-        }
-    }
-
     $scope.likePost = function (post) {
         if ($scope.isLoggedIn()) {
             usSpinnerService.spin('spinner');
@@ -139,4 +115,60 @@ app.controller('wallController', function ($scope, $location, $routeParams, conf
         }
     };
 
+    $scope.editPost = function editPost(post) {
+        if ($scope.isLoggedIn()) {
+            usSpinnerService.spin('spinner');
+            postsService.editPost(post.id, post.newPostContent)
+                .then(function () {
+                    post.postContent = post.newPostContent;
+                    usSpinnerService.stop('spinner');
+                },function (serverError) {
+                    notyService.showError("Unable to edit post!", serverError);
+                    usSpinnerService.stop('spinner');
+                }
+            );
+        }
+    };
+
+    $scope.deletePost = function deletePost(post) {
+        if ($scope.isLoggedIn()) {
+            usSpinnerService.spin('spinner');
+            postsService.deletePost(post.id)
+                .then(function () {
+                    var index = $scope.wallData.indexOf(post);
+                    $scope.wallData.splice(index, 1);
+                    usSpinnerService.stop('spinner');
+                    notyService.showInfo("Post successfully deleted.");
+                },
+                function (erverError) {
+                    notyService.showError("Unable to delete post!", erverError);
+                    usSpinnerService.stop('spinner');
+                }
+            );
+        }
+    };
+
+    //the script starts here
+    if (username === authenticationService.getUsername()) {
+        //$scope.showWall(username);
+        $scope.isMyWall = true;
+        $scope.isMyFriend = false;
+    } else {
+        if ($scope.isLoggedIn()) {
+            usersService.getUserPreviewData(username)
+            .then(function (serverResponse) {
+                if (serverResponse.data.isFriend) {
+                    $scope.isMyFriend = true;
+                    $scope.isMyWall = false;
+                } else {
+                    $scope.isMyFriend = false;
+                    $scope.isMyWall = false;
+                }
+
+                $scope.isUserExists = true;
+            }, function () {
+                $location.path('/404');
+            });
+        }
+    }
 });

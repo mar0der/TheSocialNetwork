@@ -65,7 +65,38 @@ app.controller('feedController', function ($scope, $rootScope, $location, $inter
             }
         };
 
+        $scope.editPost = function editPost(post) {
+            if ($scope.isLoggedIn()) {
+                usSpinnerService.spin('spinner');
+                postsService.editPost(post.id, post.newPostContent)
+                    .then(function () {
+                        post.postContent = post.newPostContent;
+                        usSpinnerService.stop('spinner');
+                    }, function (serverError) {
+                        notyService.showError("Unable to edit post!", serverError);
+                        usSpinnerService.stop('spinner');
+                    }
+                );
+            }
+        };
 
+        $scope.deletePost = function deletePost(post) {
+            if ($scope.isLoggedIn()) {
+                usSpinnerService.spin('spinner');
+                postsService.deletePost(post.id)
+                    .then(function () {
+                        var index = $scope.feedData.indexOf(post);
+                        $scope.feedData.splice(index, 1);
+                        usSpinnerService.stop('spinner');
+                        notyService.showInfo("Post successfully deleted.");
+                    },
+                    function (erverError) {
+                        notyService.showError("Unable to delete post!", erverError);
+                        usSpinnerService.stop('spinner');
+                    }
+                );
+            }
+        };
     };
 
     //uncomment when we are ready for tests
